@@ -4,21 +4,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-
-    Button quizButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        quizButton = findViewById(R.id.QuizButton);
-        quizButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, QuizActivity.class);
-            intent.putExtra("USER_NAME", "testUser");
-            startActivity(intent);
+      
+        // TODO: remove this button; this is a dummy placement button that opens the homepage activity
+        Button button = findViewById(R.id.dummyButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent homePageIntent = new Intent(MainActivity.this, HomepageActivity.class);
+                startActivity(homePageIntent);
+            }
         });
     }
 }
