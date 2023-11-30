@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+      
         // TODO: remove this button; this is a dummy placement button that opens the homepage activity
         Button button = findViewById(R.id.dummyButton);
         button.setOnClickListener(new View.OnClickListener() {
