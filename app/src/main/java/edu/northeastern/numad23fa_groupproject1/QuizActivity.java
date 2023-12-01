@@ -22,11 +22,8 @@ public class QuizActivity extends AppCompatActivity {
 
     private int mSelectedOptionPosition = 0;
     private int mCorrectAnswers = 0;
-
-    // TODO (STEP 3: Create a variable for getting the name from intent.)
-    // START
     private String mUserName = null;
-    // END
+
 
     // Declare UI elements
     private TextView tvOptionOne, tvOptionTwo, tvOptionThree, tvOptionFour;
@@ -64,56 +61,60 @@ public class QuizActivity extends AppCompatActivity {
 
     private ArrayList<Question> getQuestions() {
         ArrayList<Question> questions = new ArrayList<>();
-        questions.add(new Question(1,"Which city is the capital of India?",
-                "Delhi", "Mumbai", "Kolkata",
-                "Chennai", 0));
+
+        // Question 1
+        questions.add(new Question(1, "Which river is known as the 'Ganga' in India?",
+                "Yamuna", "Brahmaputra", "Godavari",
+                "Ganges", 4));
+
         // Question 2
-        questions.add(new Question(2, "What is the largest planet in our solar system?",
-                "Mars", "Jupiter", "Saturn",
-                "Earth", 1));
-
-        // Question 3
-        questions.add(new Question(3, "Which programming language is known as the 'mother of all languages'?",
-                "Java", "Python", "C",
-                "Assembly", 2));
-
-        // Question 4
-        questions.add(new Question(4, "In which year did the Titanic sink?",
-                "1912", "1920", "1905",
-                "1931", 0));
-
-        // Question 5
-        questions.add(new Question(5, "What is the capital of Japan?",
-                "Beijing", "Seoul", "Tokyo",
-                "Bangkok", 2));
-
-        // Question 6
-        questions.add(new Question(6, "Which chemical element has the symbol 'O'?",
-                "Oxygen", "Gold", "Iron",
-                "Silver", 0));
-
-        // Question 7
-        questions.add(new Question(7, "Who wrote 'Romeo and Juliet'?",
-                "Charles Dickens", "William Shakespeare", "Jane Austen",
-                "Mark Twain", 1));
-
-        // Question 8
-        questions.add(new Question(8, "Which country is known as the 'Land of the Rising Sun'?",
-                "China", "South Korea", "Japan",
-                "Vietnam", 2));
-
-        // Question 9
-        questions.add(new Question(9, "What is the capital of Australia?",
-                "Canberra", "Sydney", "Melbourne",
-                "Brisbane", 0));
-
-        // Question 10
-        questions.add(new Question(10, "Who is the inventor of the World Wide Web?",
-                "Tim Berners-Lee", "Bill Gates", "Mark Zuckerberg",
-                "Steve Jobs", 0));
+//        questions.add(new Question(2, "What is the capital city of the Indian state Maharashtra?",
+//                "Delhi", "Mumbai", "Chennai",
+//                "Kolkata", 2));
+//
+//        // Question 3
+//        questions.add(new Question(3, "Which Indian festival is known as the 'Festival of Lights'?",
+//                "Holi", "Diwali", "Navratri",
+//                "Eid", 2));
+//
+//        // Question 4
+//        questions.add(new Question(4, "In which state is the Taj Mahal located?",
+//                "Rajasthan", "Uttar Pradesh", "Madhya Pradesh",
+//                "Maharashtra", 2));
+//
+//        // Question 5
+//        questions.add(new Question(5, "Who is known as the 'Father of the Nation' in India?",
+//                "Sardar Patel", "Jawaharlal Nehru", "Subhas Chandra Bose",
+//                "Mahatma Gandhi", 4));
+//
+//        // Question 6
+//        questions.add(new Question(6, "Which Indian city is famous for its IT industry and is known as the 'Silicon Valley of India'?",
+//                "Mumbai", "Kolkata", "Bengaluru",
+//                "Chennai", 3));
+//
+//        // Question 7
+//        questions.add(new Question(7, "What is the currency of India?",
+//                "Rupee", "Rupiah", "Ringgit",
+//                "Yen", 1));
+//
+//        // Question 8
+//        questions.add(new Question(8, "Which mountain range separates India from China?",
+//                "Himalayas", "Vindhya Range", "Western Ghats",
+//                "Aravalli Range", 1));
+//
+//        // Question 9
+//        questions.add(new Question(9, "What is the national emblem of India?",
+//                "Lotus", "Ashoka Chakra", "National Flower",
+//                "Lion Capital of Ashoka", 4));
+//
+//        // Question 10
+//        questions.add(new Question(10, "Who was the first Prime Minister of India?",
+//                "Jawaharlal Nehru", "Indira Gandhi", "Sardar Patel",
+//                "Rajendra Prasad", 1));
 
         return questions;
     }
+
 
 
     private void setOnClickListeners() {

@@ -13,6 +13,9 @@ public class HistoryModel implements Parcelable {
     private boolean visibility;
 
     // constructor
+    public HistoryModel() {
+
+    }
     public HistoryModel(int imageId, String date, String eventName, String description, boolean visibility) {
         this.imageId = imageId;
         this.date = date;

@@ -22,7 +22,7 @@ public class QuizResultActivity extends AppCompatActivity {
         TextView tvName = findViewById(R.id.tv_name);
         tvName.setText(userName);
 
-        int totalQuestions = intent.getIntExtra("TOTAL_QUESTIONS", 0);
+        int totalQuestions = intent.getIntExtra("QUESTION_LIST_SIZE", 0);
         int correctAnswers = intent.getIntExtra("CORRECT_ANSWERS", 0);
 
         TextView tvScore = findViewById(R.id.tv_score);
@@ -32,7 +32,7 @@ public class QuizResultActivity extends AppCompatActivity {
         btnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(QuizResultActivity.this, MainActivity.class));
+                startActivity(new Intent(QuizResultActivity.this, LanguageActivity.class));
             }
         });
     }

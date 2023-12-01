@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ public class HistoryActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RVAdapter rvAdapter;
     private RecyclerView.LayoutManager rvLayoutManager;
+
+    private ArrayList<HistoryModel> historyEvents;
     private final ArrayList<HistoryModel> eventList = new ArrayList<>();
 
     // variables for persistency of data when orientation is changed
@@ -26,7 +29,10 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-
+        Intent intent = getIntent();
+        if (intent != null) {
+            historyEvents = intent.getParcelableArrayListExtra("HISTORY_EVENTS");
+        }
         // create the recycler view
         createRV();
 
@@ -50,7 +56,8 @@ public class HistoryActivity extends AppCompatActivity {
                 }
             }
         } else { // first time opening activity
-            addItems(loadList());
+//            addItems(loadList());
+            addItems(historyEvents);
         }
 
     }

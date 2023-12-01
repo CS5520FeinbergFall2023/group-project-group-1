@@ -2,6 +2,7 @@ package edu.northeastern.numad23fa_groupproject1;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -15,17 +16,83 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+
 import edu.northeastern.numad23fa_groupproject1.History.HistoryActivity;
+import edu.northeastern.numad23fa_groupproject1.History.HistoryModel;
 
 public class HomepageActivity extends AppCompatActivity {
     Spinner countrySpinner;
     TextView pickCountryTV, optionQuestionTV;
 
     Button languageBtn, historyBtn, cultureBtn, galleryBtn;
+
+    ArrayList<HistoryModel> historyEvent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+        //test
+        historyEvent = new ArrayList<>();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        // Fetch the country document
+        CollectionReference collectionRef = db.collection("countries");
+
+        // Fetch all documents in the collection
+        collectionRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot document : task.getResult()) {
+                        String culture = document.getString("culture");
+                        ArrayList<Map<String, String>>  historyList = (ArrayList<Map<java.lang.String,java.lang.String>>) document.get("history");
+                        if (historyList != null) {
+                            // Iterate through each map in the ArrayList
+                            for (Map<String, String> historyMap : historyList) {
+                                HistoryModel historyModel = new HistoryModel();
+                                // Iterate through each key in the map
+                                for (String key : historyMap.keySet()) {
+                                    historyModel.setDate(historyMap.get("date"));
+                                    historyModel.setDescription(historyMap.get("desc"));
+                                    historyModel.setEventName(historyMap.get("event"));
+//                                    historyModel.setImageId(findImageById(Integer.parseInt(historyMap.get("imageID")))); TODO
+                                }
+                                historyEvent.add(historyModel);
+                            }
+                        } else {
+                            Log.d("Firestore", "No history field in the document.");
+                        }
+                        String language = document.getString("language");
+                        ArrayList<Map<String, Object>> hashMapsArray = (ArrayList<Map<String, Object>>) document.get("quiz_data");
+                        if (hashMapsArray != null) {
+                            // Iterate through each HashMap in the array
+                            for (Map<String, Object> hashMap : hashMapsArray) {
+                                // Access key-value pairs in the HashMap
+                                for (Map.Entry<String, Object> entry : hashMap.entrySet()) {
+                                    String key = entry.getKey();
+                                    Object value = entry.getValue();
+                                    Log.d("Firestore", "Key: " + key + ", Value: " + value);
+                                }
+                            }
+                        } else {
+                            Log.d("Firestore", "No hashMapsArray field in the document.");
+                        }
+                    }
+                } else {
+                    Log.w("Firestore", "Error getting documents.", task.getException());
+                }
+            }
+        });
 
         // set the textview and buttons
         optionQuestionTV = findViewById(R.id.optionQuestionTV);
@@ -70,7 +137,9 @@ public class HomepageActivity extends AppCompatActivity {
         languageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent quizActivityIntent = new Intent(HomepageActivity.this, LanguageActivity.class);
+                quizActivityIntent.putExtra("USER_NAME", "testUser");
+                startActivity(quizActivityIntent);
             }
         });
 
@@ -78,6 +147,7 @@ public class HomepageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent historyIntent = new Intent(HomepageActivity.this, HistoryActivity.class);
+                historyIntent.putParcelableArrayListExtra("HISTORY_EVENTS", historyEvent);
                 startActivity(historyIntent);
             }
         });
@@ -95,6 +165,7 @@ public class HomepageActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     private String getLanguage(String country) {
@@ -105,5 +176,19 @@ public class HomepageActivity extends AppCompatActivity {
             return "Malay";
         }
         return null;
+    }
+
+    private int findImageById(int imageID) {
+        switch (imageID) {
+            case 0 :
+                return R.drawable.history1;
+            case 1:
+                return R.drawable.history2;
+            case 2:
+                return R.drawable.history3;
+            case 3:
+                return R.drawable.history4;
+        }
+        return -1;
     }
 }
