@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "743562208781",
+    "project_id": "travel-lingo",
+    "storage_bucket": "travel-lingo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:743562208781:android:ecc00373c31bbb70701744",
+        "android_client_info": {
+          "package_name": "edu.northeastern.numad23fa_groupproject1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPjM2oz5sermUiiL7zNJ6mcgJQyZ5xV0c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
