@@ -38,6 +38,8 @@ public class LeaderboardActivity extends AppCompatActivity {
 
         list = new ArrayList<>();
         LinearLayoutManager manager = new LinearLayoutManager(this);
+        manager.setReverseLayout(true);
+        manager.setStackFromEnd(true);
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);
 
