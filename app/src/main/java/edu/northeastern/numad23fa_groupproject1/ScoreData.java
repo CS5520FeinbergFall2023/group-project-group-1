@@ -1,7 +1,7 @@
 package edu.northeastern.numad23fa_groupproject1;
 
 public class ScoreData {
-    String name, image;
+    String name;
     long score;
 
     public ScoreData() {

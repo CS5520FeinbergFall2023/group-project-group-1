@@ -36,7 +36,7 @@ public class LeaderboardActivity extends AppCompatActivity {
 
         // Initialize Firestore
         db = FirebaseFirestore.getInstance();
-        scoresCollection = db.collection("users"); // Replace "scores" with your Firestore collection name
+        scoresCollection = db.collection("users");
 
         list = new ArrayList<>();
         LinearLayoutManager manager = new LinearLayoutManager(this);
