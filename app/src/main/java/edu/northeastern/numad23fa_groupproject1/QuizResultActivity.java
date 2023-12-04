@@ -8,7 +8,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class QuizResultActivity extends AppCompatActivity {
+    FirebaseFirestore db;
+    CollectionReference scoresCollection;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,8 +26,11 @@ public class QuizResultActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
 
         Intent intent = getIntent();
+        db = FirebaseFirestore.getInstance();
+        scoresCollection = db.collection("users"); // Replace "scores" with your Firestore collection name
 
         String userName = intent.getStringExtra("USER_NAME");
+
         TextView tvName = findViewById(R.id.tv_name);
         tvName.setText(userName);
 
@@ -32,7 +44,22 @@ public class QuizResultActivity extends AppCompatActivity {
         btnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(QuizResultActivity.this, LanguageActivity.class));
+                // Create a map with name and score fields
+                Map<String, Object> scoreData = new HashMap<>();
+                scoreData.put("name", userName);
+                scoreData.put("score", correctAnswers);
+
+                // Add the score data to the 'scores' collection in Firestore
+                scoresCollection
+                        .add(scoreData)
+                        .addOnSuccessListener(documentReference -> {
+                            // Success: Score data added to Firestore
+                            startActivity(new Intent(QuizResultActivity.this, LanguageActivity.class));
+                        })
+                        .addOnFailureListener(e -> {
+                            // Failure: Handle error adding score data to Firestore
+                        });
+
             }
         });
     }
