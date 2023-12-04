@@ -28,13 +28,14 @@ public class LeaderboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
+        String loggerInUserId = "testUser";
 
         recyclerView = findViewById(R.id.leaderboard_recycler);
         progressBar = findViewById(R.id.leaderboardProgress);
 
         // Initialize Firestore
         db = FirebaseFirestore.getInstance();
-        scoresCollection = db.collection("scores"); // Replace "scores" with your Firestore collection name
+        scoresCollection = db.collection("users"); // Replace "scores" with your Firestore collection name
 
         list = new ArrayList<>();
         LinearLayoutManager manager = new LinearLayoutManager(this);
@@ -43,26 +44,27 @@ public class LeaderboardActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);
 
-        scoresCollection.addSnapshotListener((snapshot, error) -> {
-            if (error != null) {
-                progressBar.setVisibility(View.GONE);
-                return;
-            }
-
-            if (snapshot != null) {
-                list.clear(); // Clear the list before adding new data
-
-                for (DocumentSnapshot document : snapshot.getDocuments()) {
-                    ScoreData data = document.toObject(ScoreData.class);
-                    if (data != null) {
-                        list.add(data);
+        scoresCollection
+                .addSnapshotListener((snapshot, error) -> {
+                    if (error != null) {
+                        progressBar.setVisibility(View.GONE);
+                        return;
                     }
-                }
 
-                adapter = new ScoreAdapter(list, LeaderboardActivity.this);
-                recyclerView.setAdapter(adapter);
-                progressBar.setVisibility(View.GONE);
-            }
+                    if (snapshot != null) {
+                        list.clear(); // Clear the list before adding new data
+
+                        for (DocumentSnapshot document : snapshot.getDocuments()) {
+                            ScoreData data = document.toObject(ScoreData.class);
+                            if (data != null) {
+                                list.add(data);
+                            }
+                        }
+
+                        adapter = new ScoreAdapter(list, LeaderboardActivity.this);
+                        recyclerView.setAdapter(adapter);
+                        progressBar.setVisibility(View.GONE);
+                    }
         });
 
 

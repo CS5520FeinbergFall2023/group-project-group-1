@@ -7,9 +7,8 @@ public class ScoreData {
     public ScoreData() {
     }
 
-    public ScoreData(String name, String image, long score) {
+    public ScoreData(String name, long score) {
         this.name = name;
-        this.image = image;
         this.score = score;
     }
 
@@ -21,13 +20,8 @@ public class ScoreData {
         this.name = name;
     }
 
-    public String getImage() {
-        return image;
-    }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
+
 
     public long getScore() {
         return score;

@@ -40,7 +40,7 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewAda
         holder.name.setText(currentItem.getName());
         holder.score.setText(String.valueOf(currentItem.getScore()));
         holder.rank.setText(String.valueOf(i));
-        Glide.with(context).load(currentItem.getImage()).into(holder.imageView);
+        //Glide.with(context).load(currentItem.getImage()).into(holder.imageView);
         i++;
 
     }
