@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
         scoresCollection
+                .orderBy("score", Query.Direction.ASCENDING)
                 .addSnapshotListener((snapshot, error) -> {
                     if (error != null) {
                         progressBar.setVisibility(View.GONE);
