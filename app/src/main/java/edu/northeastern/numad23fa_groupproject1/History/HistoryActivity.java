@@ -56,8 +56,11 @@ public class HistoryActivity extends AppCompatActivity {
                 }
             }
         } else { // first time opening activity
-//            addItems(loadList());
-            addItems(historyEvents);
+            // load local data
+            addItems(loadList());
+
+            // load data from the database
+//            addItems(historyEvents);
         }
 
     }

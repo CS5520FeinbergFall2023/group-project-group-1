@@ -34,7 +34,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RVViewHolder holder, int position) {
         HistoryModel currentItem = eventList.get(position);
-        // TODO: figure out how to get the image of each historical event
         holder.imageIV.setImageResource(currentItem.getImageId());
         holder.dateTV.setText(currentItem.getDate());
         holder.eventNameTV.setText(currentItem.getEventName());
