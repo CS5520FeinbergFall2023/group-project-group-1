@@ -38,6 +38,8 @@ public class HomepageActivity extends AppCompatActivity {
     Button languageBtn, historyBtn, cultureBtn, galleryBtn;
 
     ArrayList<HistoryModel> historyEvent;
+
+    String countrySelected;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +57,7 @@ public class HomepageActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     for (DocumentSnapshot document : task.getResult()) {
                         String culture = document.getString("culture");
-                        ArrayList<Map<String, String>>  historyList = (ArrayList<Map<java.lang.String,java.lang.String>>) document.get("history");
+                        ArrayList<Map<String, String>>  historyList = (ArrayList<Map<java.lang.String,java.lang.String>>) document.get("historyData");
                         if (historyList != null) {
                             // Iterate through each map in the ArrayList
                             for (Map<String, String> historyMap : historyList) {
@@ -65,7 +67,8 @@ public class HomepageActivity extends AppCompatActivity {
                                     historyModel.setDate(historyMap.get("date"));
                                     historyModel.setDescription(historyMap.get("desc"));
                                     historyModel.setEventName(historyMap.get("event"));
-//                                    historyModel.setImageId(findImageById(Integer.parseInt(historyMap.get("imageID")))); TODO
+                                    historyModel.setImageId(0);
+                                    historyModel.setVisibility(false);
                                 }
                                 historyEvent.add(historyModel);
                             }
@@ -73,20 +76,6 @@ public class HomepageActivity extends AppCompatActivity {
                             Log.d("Firestore", "No history field in the document.");
                         }
                         String language = document.getString("language");
-                        ArrayList<Map<String, Object>> hashMapsArray = (ArrayList<Map<String, Object>>) document.get("quiz_data");
-                        if (hashMapsArray != null) {
-                            // Iterate through each HashMap in the array
-                            for (Map<String, Object> hashMap : hashMapsArray) {
-                                // Access key-value pairs in the HashMap
-                                for (Map.Entry<String, Object> entry : hashMap.entrySet()) {
-                                    String key = entry.getKey();
-                                    Object value = entry.getValue();
-                                    Log.d("Firestore", "Key: " + key + ", Value: " + value);
-                                }
-                            }
-                        } else {
-                            Log.d("Firestore", "No hashMapsArray field in the document.");
-                        }
                     }
                 } else {
                     Log.w("Firestore", "Error getting documents.", task.getException());
@@ -118,6 +107,7 @@ public class HomepageActivity extends AppCompatActivity {
                 //   make the option buttons visible if a country is selected
                 if (!selectedCountry.equals("Select a country...")) {
                     Log.d(TAG, "country selected: " + selectedCountry);
+                    countrySelected = selectedCountry;
                     optionQuestionTV.setVisibility(View.VISIBLE);
                     languageBtn.setText("Language: " + getLanguage(selectedCountry));
                     languageBtn.setVisibility(View.VISIBLE);
@@ -137,9 +127,10 @@ public class HomepageActivity extends AppCompatActivity {
         languageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent quizActivityIntent = new Intent(HomepageActivity.this, LanguageActivity.class);
-                quizActivityIntent.putExtra("USER_NAME", "testUser");
-                startActivity(quizActivityIntent);
+                Intent langugageActivityIntent = new Intent(HomepageActivity.this, LanguageActivity.class);
+                langugageActivityIntent.putExtra("USER_NAME", "testUser");
+                langugageActivityIntent.putExtra("COUNTRY", countrySelected);
+                startActivity(langugageActivityIntent);
             }
         });
 
