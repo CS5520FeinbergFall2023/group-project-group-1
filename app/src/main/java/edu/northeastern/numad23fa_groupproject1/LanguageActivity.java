@@ -7,10 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import edu.northeastern.numad23fa_groupproject1.Learn.ModuleSelectionActivity;
+
 public class LanguageActivity extends AppCompatActivity {
 
     Button quizBtn;
     Button leaderBtn;
+
+    Button learnBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +22,7 @@ public class LanguageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_language);
         quizBtn = findViewById(R.id.quizBtn);
         leaderBtn = findViewById(R.id.leaderBoardBtn);
+        learnBtn = findViewById(R.id.learnBtn);
 
         quizBtn.setOnClickListener(v -> {
             Intent quizActivityIntent = new Intent(LanguageActivity.this, QuizActivity.class);
@@ -32,6 +37,12 @@ public class LanguageActivity extends AppCompatActivity {
                 LeaderboardIntent.putExtra("USER_NAME", "testUser");
                 startActivity(LeaderboardIntent);
             }
+        });
+
+        learnBtn.setOnClickListener((View v) -> {
+            Intent LeaderboardIntent = new Intent(LanguageActivity.this, ModuleSelectionActivity.class);
+            LeaderboardIntent.putExtra("USER_NAME", "testUser");
+            startActivity(LeaderboardIntent);
         });
     }
 }
