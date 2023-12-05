@@ -1,5 +1,8 @@
 package edu.northeastern.numad23fa_groupproject1.Learn;
 
+import android.os.Handler;
+import android.os.Message;
+
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,10 +23,10 @@ public class LearnModuleServiceImpl implements LearnModuleService {
     }
 
     @Override
-    public Runnable getAllModules() {
-        return () -> db.collection("countries")
+    public void getAllModules(Handler handler) {
+        db.collection("countries")
                 .document("india")
-                .collection("mod")
+                .collection("modules")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -32,9 +35,12 @@ public class LearnModuleServiceImpl implements LearnModuleService {
                             List<ModuleModel> modules = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String title = document.get("title", String.class);
-                                List<TranslationsModel> phrases = document.get("phrases", List.class);
+                                List<TranslationsModel> phrases = (List<TranslationsModel>) document.get("phrases");
                                 modules.add(new ModuleModel(title, phrases));
                             }
+                            Message message = Message.obtain();
+                            message.obj = modules;
+                            handler.sendMessage(message);
                         }
                     }
                 });
