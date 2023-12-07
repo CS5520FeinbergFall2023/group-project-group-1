@@ -1,11 +1,11 @@
-package edu.northeastern.numad23fa_groupproject1;
+package edu.northeastern.numad23fa_groupproject1.Quiz;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-public class Question implements Parcelable {
+public class QuestionModel implements Parcelable {
     int id;
     String question;
     String optionOne;
@@ -15,12 +15,12 @@ public class Question implements Parcelable {
 
     int correctAnswer;
 
-    public Question() {
+    public QuestionModel() {
 
     }
 
 
-    public Question(int id, String question, String optionOne, String optionTwo, String optionThree, String optionFour, int correctAnswer) {
+    public QuestionModel(int id, String question, String optionOne, String optionTwo, String optionThree, String optionFour, int correctAnswer) {
         this.id = id;
         this.question = question;
         this.optionOne = optionOne;
@@ -30,7 +30,7 @@ public class Question implements Parcelable {
         this.correctAnswer = correctAnswer;
     }
 
-    protected Question(Parcel in) {
+    protected QuestionModel(Parcel in) {
         id = in.readInt();
         question = in.readString();
         optionOne = in.readString();
@@ -40,15 +40,15 @@ public class Question implements Parcelable {
         correctAnswer = in.readInt();
     }
 
-    public static final Creator<Question> CREATOR = new Creator<Question>() {
+    public static final Creator<QuestionModel> CREATOR = new Creator<QuestionModel>() {
         @Override
-        public Question createFromParcel(Parcel in) {
-            return new Question(in);
+        public QuestionModel createFromParcel(Parcel in) {
+            return new QuestionModel(in);
         }
 
         @Override
-        public Question[] newArray(int size) {
-            return new Question[size];
+        public QuestionModel[] newArray(int size) {
+            return new QuestionModel[size];
         }
     };
 

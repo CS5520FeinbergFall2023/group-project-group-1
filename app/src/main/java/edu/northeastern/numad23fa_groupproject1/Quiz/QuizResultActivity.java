@@ -1,8 +1,9 @@
-package edu.northeastern.numad23fa_groupproject1;
+package edu.northeastern.numad23fa_groupproject1.Quiz;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,13 +11,20 @@ import android.widget.TextView;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.northeastern.numad23fa_groupproject1.LanguageActivity;
+import edu.northeastern.numad23fa_groupproject1.R;
+import edu.northeastern.numad23fa_groupproject1.UserModel;
+
 public class QuizResultActivity extends AppCompatActivity {
     FirebaseFirestore db;
     CollectionReference scoresCollection;
+
+    SharedPreferences sharedPreferences;
 
 
     @Override
@@ -29,7 +37,13 @@ public class QuizResultActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         scoresCollection = db.collection("users"); // Replace "scores" with your Firestore collection name
 
-        String userName = intent.getStringExtra("USER_NAME");
+        // get user information from shared preference
+        sharedPreferences = getSharedPreferences("admin1", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("USER", "");
+        UserModel user = gson.fromJson(json, UserModel.class);
+        String userName = user.getUsername();
+//        String userName = intent.getStringExtra("USER_NAME");
 
         TextView tvName = findViewById(R.id.tv_name);
         tvName.setText(userName);
@@ -49,16 +63,18 @@ public class QuizResultActivity extends AppCompatActivity {
                 scoreData.put("name", userName);
                 scoreData.put("score", correctAnswers);
 
-                // Add the score data to the 'scores' collection in Firestore
-                scoresCollection
-                        .add(scoreData)
-                        .addOnSuccessListener(documentReference -> {
-                            // Success: Score data added to Firestore
-                            startActivity(new Intent(QuizResultActivity.this, LanguageActivity.class));
-                        })
-                        .addOnFailureListener(e -> {
-                            // Failure: Handle error adding score data to Firestore
-                        });
+//                // Add the score data to the 'scores' collection in Firestore
+//                scoresCollection
+//                        .add(scoreData)
+//                        .addOnSuccessListener(documentReference -> {
+//                            // Success: Score data added to Firestore
+//                            startActivity(new Intent(QuizResultActivity.this, LanguageActivity.class));
+//                        })
+//                        .addOnFailureListener(e -> {
+//                            // Failure: Handle error adding score data to Firestore
+//                        });
+
+                //
 
             }
         });

@@ -1,4 +1,4 @@
-package edu.northeastern.numad23fa_groupproject1;
+package edu.northeastern.numad23fa_groupproject1.leaderboard;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,10 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.google.android.material.color.utilities.Score;
-
 import java.util.List;
+
+import edu.northeastern.numad23fa_groupproject1.R;
 
 public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewAdapter> {
 
@@ -38,8 +37,9 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewAda
     public void onBindViewHolder(@NonNull ScoreViewAdapter holder, int position) {
         ScoreData currentItem = list.get(position);
         holder.name.setText(currentItem.getName());
-        holder.score.setText(String.valueOf(currentItem.getScore()));
-        holder.rank.setText(String.valueOf(i));
+        holder.score.setText("score: " + String.valueOf(currentItem.getScore()));
+//        holder.rank.setText(String.valueOf(i));
+        holder.rank.setText("#" + String.valueOf(getItemCount() - position));
         //Glide.with(context).load(currentItem.getImage()).into(holder.imageView);
         i++;
 
@@ -58,8 +58,8 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewAda
             super(itemView);
             imageView = itemView.findViewById(R.id.score_user_img);
             name = itemView.findViewById(R.id.score_user_name);
-            score = itemView.findViewById(R.id.score_user_result);
-            rank = itemView.findViewById(R.id.score_user_rank);
+            score = itemView.findViewById(R.id.static_score_user_result);
+            rank = itemView.findViewById(R.id.static_score_user_rank);
         }
     }
 }

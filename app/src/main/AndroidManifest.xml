@@ -17,7 +17,7 @@
             android:name=".Learn.ModuleSelectionActivity"
             android:exported="false" />
         <activity
-            android:name=".LeaderboardActivity"
+            android:name=".leaderboard.LeaderboardActivity"
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"
@@ -37,13 +37,10 @@
             android:name=".LanguageActivity"
             android:exported="false" />
         <activity
-            android:name=".QuizResultActivity"
+            android:name=".Quiz.QuizResultActivity"
             android:exported="false" />
         <activity
-            android:name=".QuizActivity"
-            android:exported="false" />
-        <activity
-            android:name=".HomepageActivity"
+            android:name=".Quiz.QuizActivity"
             android:exported="false" />
         <activity
             android:name=".History.HistoryActivity"
@@ -51,11 +48,11 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
     </application>
 

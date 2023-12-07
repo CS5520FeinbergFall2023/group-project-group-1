@@ -1,22 +1,28 @@
-package edu.northeastern.numad23fa_groupproject1;
+package edu.northeastern.numad23fa_groupproject1.Quiz;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
+
+import edu.northeastern.numad23fa_groupproject1.R;
+import edu.northeastern.numad23fa_groupproject1.UserModel;
 
 
 public class QuizActivity extends AppCompatActivity {
 
     private int mCurrentPosition = 1; // Default and the first question position
-    private ArrayList<Question> mQuestionsList = null;
+    private ArrayList<QuestionModel> mQuestionsList = null;
 
     private int mSelectedOptionPosition = 0;
     private int mCorrectAnswers = 0;
@@ -29,17 +35,27 @@ public class QuizActivity extends AppCompatActivity {
     private TextView tvProgress, tvQuestion;
     private TextView btnSubmit;
 
+    SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
         mQuestionsList = new ArrayList<>();
+
         Intent intent = getIntent();
         if (intent != null) {
-            mUserName = intent.getStringExtra("USER_NAME");
+//            mUserName = intent.getStringExtra("USER_NAME");
             country = intent.getStringExtra("COUNTRY");
             mQuestionsList = getIntent().getParcelableArrayListExtra("questionArray");
         }
+        // get user information from shared preference
+//        sharedPreferences = getSharedPreferences("admin1", MODE_PRIVATE);
+//        Gson gson = new Gson();
+//        String json = sharedPreferences.getString("USER", "");
+//        UserModel user = gson.fromJson(json, UserModel.class);
+//        mUserName = user.getUsername();
+
         // Initialize UI elements
         tvOptionOne = findViewById(R.id.tv_option_one);
         tvOptionTwo = findViewById(R.id.tv_option_two);
@@ -74,14 +90,14 @@ public class QuizActivity extends AppCompatActivity {
                     setQuestion();
                 } else {
                     Intent intent = new Intent(this, QuizResultActivity.class);
-                    intent.putExtra("USER_NAME", mUserName);
+//                    intent.putExtra("USER_NAME", mUserName);
                     intent.putExtra("CORRECT_ANSWERS", mCorrectAnswers);
                     intent.putExtra("QUESTION_LIST_SIZE", mQuestionsList.size());
                     startActivity(intent);
                     finish();
                 }
             } else {
-                Question question = mQuestionsList.get(mCurrentPosition - 1);
+                QuestionModel question = mQuestionsList.get(mCurrentPosition - 1);
 
                 if (question.getCorrectAnswer() != mSelectedOptionPosition) {
                     answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg);
@@ -103,7 +119,7 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void setQuestion() {
-        Question question = mQuestionsList.get(mCurrentPosition - 1);
+        QuestionModel question = mQuestionsList.get(mCurrentPosition - 1);
 
         defaultOptionsView();
 

@@ -20,8 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import edu.northeastern.numad23fa_groupproject1.Learn.ModuleSelectionActivity;
+import edu.northeastern.numad23fa_groupproject1.Quiz.QuestionModel;
+import edu.northeastern.numad23fa_groupproject1.Quiz.QuizActivity;
+import edu.northeastern.numad23fa_groupproject1.Quiz.QuizDataCallback;
+import edu.northeastern.numad23fa_groupproject1.leaderboard.LeaderboardActivity;
 
 public class LanguageActivity extends AppCompatActivity {
 
@@ -31,8 +36,9 @@ public class LanguageActivity extends AppCompatActivity {
     Button learnBtn;
 
     String country;
+    UserModel mUser;
 
-    List<Question> questionList = new ArrayList<>();
+    List<QuestionModel> questionList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +46,21 @@ public class LanguageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_language);
         Intent intent = getIntent();
         country = intent.getStringExtra("COUNTRY");
+        mUser = Objects.requireNonNull(intent.getExtras()).getParcelable("USER");
+
         quizBtn = findViewById(R.id.quizBtn);
         leaderBtn = findViewById(R.id.leaderBoardBtn);
         learnBtn = findViewById(R.id.learnBtn);
 
         quizBtn.setOnClickListener(v -> {
+
+            // TODO: What happens when it's not the first time quiz button is clicked
             getQuizData(new QuizDataCallback() {
                 @Override
-                public void onQuizDataLoaded(List<Question> questions) {
+                public void onQuizDataLoaded(List<QuestionModel> questions) {
                     questionList.addAll(questions);
                     Intent quizActivityIntent = new Intent(LanguageActivity.this, QuizActivity.class);
-                    quizActivityIntent.putExtra("USER_NAME", "testUser");
+//                    quizActivityIntent.putExtra("USER", mUser);
                     quizActivityIntent.putExtra("COUNTRY", country);
                     quizActivityIntent.putParcelableArrayListExtra("questionArray", (ArrayList<? extends Parcelable>) questionList);
                     startActivity(quizActivityIntent);
@@ -63,14 +73,14 @@ public class LanguageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent LeaderboardIntent = new Intent(LanguageActivity.this, LeaderboardActivity.class);
-                LeaderboardIntent.putExtra("USER_NAME", "testUser");
+//                LeaderboardIntent.putExtra("USER", mUser);
                 startActivity(LeaderboardIntent);
             }
         });
 
         learnBtn.setOnClickListener((View v) -> {
             Intent LeaderboardIntent = new Intent(LanguageActivity.this, ModuleSelectionActivity.class);
-            LeaderboardIntent.putExtra("USER_NAME", "testUser");
+//            LeaderboardIntent.putExtra("USER", mUser);
             startActivity(LeaderboardIntent);
         });
     }
@@ -86,10 +96,10 @@ public class LanguageActivity extends AppCompatActivity {
                     if (document.exists()) {
                         ArrayList<Map<String, Object>> quizDataArray = (ArrayList<Map<String, Object>>) document.get("quizData");
                         if (quizDataArray != null) {
-                            List<Question> questions = new ArrayList<>();
+                            List<QuestionModel> questions = new ArrayList<>();
                             // Iterate through each map in the ArrayList
                             for (Map<String, Object> quizData : quizDataArray) {
-                                Question question = new Question();
+                                QuestionModel question = new QuestionModel();
                                 // Iterate through each key in the map
                                 question.setCorrectAnswer(Integer.parseInt(String.valueOf(quizData.get("correct_answer"))));
                                 question.setQuestion((String) quizData.get("question"));

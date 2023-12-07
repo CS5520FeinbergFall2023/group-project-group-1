@@ -1,13 +1,11 @@
-package edu.northeastern.numad23fa_groupproject1;
+package edu.northeastern.numad23fa_groupproject1.leaderboard;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.google.firebase.firestore.CollectionReference;
@@ -18,6 +16,8 @@ import com.google.firebase.firestore.Query;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.northeastern.numad23fa_groupproject1.R;
+
 public class LeaderboardActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ProgressBar progressBar;
@@ -26,7 +26,7 @@ public class LeaderboardActivity extends AppCompatActivity {
 
     FirebaseFirestore db;
     CollectionReference scoresCollection;
-    Button leaderboardBackBtn;
+//    Button leaderboardBackBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +37,13 @@ public class LeaderboardActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.leaderboard_recycler);
         progressBar = findViewById(R.id.leaderboardProgress);
 
-        leaderboardBackBtn = findViewById(R.id.LeaderboardBackBtn);
+//        leaderboardBackBtn = findViewById(R.id.LeaderboardBackBtn);
 
-        leaderboardBackBtn.setOnClickListener(v -> {
-            // Go back to LanguageActivity when the back button is clicked
-            startActivity(new Intent(LeaderboardActivity.this, LanguageActivity.class));
-            finish();
-        });
+//        leaderboardBackBtn.setOnClickListener(v -> {
+//            // Go back to LanguageActivity when the back button is clicked
+//            startActivity(new Intent(LeaderboardActivity.this, LanguageActivity.class));
+//            finish();
+//        });
 
         // Initialize Firestore
         db = FirebaseFirestore.getInstance();
