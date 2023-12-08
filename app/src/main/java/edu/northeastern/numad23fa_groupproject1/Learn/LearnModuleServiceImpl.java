@@ -12,7 +12,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LearnModuleServiceImpl implements LearnModuleService {
 
@@ -35,8 +37,15 @@ public class LearnModuleServiceImpl implements LearnModuleService {
                             List<ModuleModel> modules = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String title = document.get("title", String.class);
-                                List<TranslationsModel> phrases = (List<TranslationsModel>) document.get("phrases");
-                                modules.add(new ModuleModel(title, phrases));
+                                ModuleModel module = new ModuleModel(title, new ArrayList<>());
+                                Map<String, Object> map = document.getData();
+
+                                List<HashMap<String, String>> phrases = (List<HashMap<String, String>>) map.get("phrases");
+                                phrases.forEach(item -> {
+                                    module.getTranslations().add(new ModuleContentModel(item.get("phrase"),
+                                            item.get("translation")));
+                                });
+                                modules.add(module);
                             }
                             Message message = Message.obtain();
                             message.obj = modules;

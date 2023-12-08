@@ -11,13 +11,17 @@ import android.widget.Button;
 import androidx.recyclerview.widget.RecyclerView;
 
 import edu.northeastern.numad23fa_groupproject1.R;
+import edu.northeastern.numad23fa_groupproject1.common.ItemClickListener;
 
 public class RVModulesAdapter extends RecyclerView.Adapter<RVModulesAdapter.ViewHolder> {
 
     private List<ModuleModel> modules;
 
-    public RVModulesAdapter(List<ModuleModel> modules) {
+    private ItemClickListener listener;
+
+    public RVModulesAdapter(List<ModuleModel> modules, ItemClickListener listener) {
         this.modules = modules;
+        this.listener = listener;
     }
 
     @Override
@@ -42,7 +46,7 @@ public class RVModulesAdapter extends RecyclerView.Adapter<RVModulesAdapter.View
         Button moduleBtn = holder.moduleBtn;
         moduleBtn.setText(moduleModel.getTitle());
         moduleBtn.setOnClickListener((View view) -> {
-
+            listener.onClick(position);
         });
     }
 

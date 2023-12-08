@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -17,6 +18,7 @@ import javax.inject.Named;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import edu.northeastern.numad23fa_groupproject1.R;
+import edu.northeastern.numad23fa_groupproject1.common.ItemClickListener;
 
 @AndroidEntryPoint
 public class ModuleSelectionActivity extends AppCompatActivity {
@@ -41,7 +43,13 @@ public class ModuleSelectionActivity extends AppCompatActivity {
         // Initialize contacts
         modules = new ArrayList<>();
         // Create adapter passing in the sample user data
-        adapter = new RVModulesAdapter(modules);
+        adapter = new RVModulesAdapter(modules, position -> {
+            Intent intent = new Intent(new Intent(ModuleSelectionActivity.this, ModuleContentPagerActivity.class));
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("content", modules.get(position));
+            intent.putExtras(bundle);
+            startActivity(intent);
+        });
         // Attach the adapter to the recyclerview to populate items
         rvModulesList.setAdapter(adapter);
         // Set layout manager to position the items
