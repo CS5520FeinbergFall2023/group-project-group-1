@@ -16,16 +16,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import edu.northeastern.numad23fa_groupproject1.Leaderboard.LeaderboardActivity;
+import edu.northeastern.numad23fa_groupproject1.leaderboard.LeaderboardActivity;
 import edu.northeastern.numad23fa_groupproject1.Learn.ModuleSelectionActivity;
-import edu.northeastern.numad23fa_groupproject1.Login.UserModel;
 import edu.northeastern.numad23fa_groupproject1.Quiz.QuestionModel;
 import edu.northeastern.numad23fa_groupproject1.Quiz.QuizActivity;
 import edu.northeastern.numad23fa_groupproject1.Quiz.QuizDataCallback;
@@ -51,12 +49,7 @@ public class LanguageActivity extends AppCompatActivity {
         // retrieve country from shared preference
         sharedPreferences = getSharedPreferences("admin1", MODE_PRIVATE);
         country = sharedPreferences.getString("COUNTRY", "");
-        Log.d("mCountry ", country);
-
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("USER", "");
-        UserModel user = gson.fromJson(json, UserModel.class);
-        Log.d("mUser", user.getEmail());
+        Log.d("LanguageActivity ", country);
 
 //        Intent intent = getIntent();
 //        country = intent.getStringExtra("COUNTRY");
@@ -71,8 +64,8 @@ public class LanguageActivity extends AppCompatActivity {
                 public void onQuizDataLoaded(List<QuestionModel> questions) {
                     questionList.addAll(questions);
                     Intent quizActivityIntent = new Intent(LanguageActivity.this, QuizActivity.class);
-                    quizActivityIntent.putExtra("USER_NAME", "testUser");
-                    quizActivityIntent.putExtra("COUNTRY", country);
+//                    quizActivityIntent.putExtra("USER_NAME", "testUser");
+//                    quizActivityIntent.putExtra("COUNTRY", country);
                     quizActivityIntent.putParcelableArrayListExtra("questionArray", (ArrayList<? extends Parcelable>) questionList);
                     startActivity(quizActivityIntent);
                 }
@@ -84,14 +77,14 @@ public class LanguageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent LeaderboardIntent = new Intent(LanguageActivity.this, LeaderboardActivity.class);
-                LeaderboardIntent.putExtra("USER_NAME", "testUser");
+//                LeaderboardIntent.putExtra("USER_NAME", "testUser");
                 startActivity(LeaderboardIntent);
             }
         });
 
         learnBtn.setOnClickListener((View v) -> {
             Intent LeaderboardIntent = new Intent(LanguageActivity.this, ModuleSelectionActivity.class);
-            LeaderboardIntent.putExtra("USER_NAME", "testUser");
+//            LeaderboardIntent.putExtra("USER_NAME", "testUser");
             startActivity(LeaderboardIntent);
         });
     }

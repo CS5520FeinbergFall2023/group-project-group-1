@@ -12,18 +12,18 @@ public class UserModel implements Parcelable {
     // This is for the toObject method of the Document snapshot (related to Firestore)
     public UserModel() {}
 
-    public UserModel(String mUserId, String mEmail, String mUsername) {
+    public UserModel(String mUserId, String mEmail, String mUsername, int mScore) {
         this.userId = mUserId;
         this.email = mEmail;
         this.username = mUsername;
-        this.score = 0;
+        this.score = mScore;
     }
 
-    public UserModel(String mUserId, String mEmail) {
+    public UserModel(String mUserId, String mEmail, int mScore) {
         this.userId = mUserId;
         this.email = mEmail;
         this.username = mEmail.split("@")[0];;
-        this.score = 0;
+        this.score = mScore;
     }
 
     protected UserModel(Parcel in) {
