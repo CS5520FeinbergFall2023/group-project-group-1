@@ -43,7 +43,7 @@ public class LearnModuleServiceImpl implements LearnModuleService {
                                 List<HashMap<String, String>> phrases = (List<HashMap<String, String>>) map.get("phrases");
                                 phrases.forEach(item -> {
                                     module.getTranslations().add(new ModuleContentModel(item.get("phrase"),
-                                            item.get("translation")));
+                                            item.get("translation"), item.get("identifier")));
                                 });
                                 modules.add(module);
                             }
