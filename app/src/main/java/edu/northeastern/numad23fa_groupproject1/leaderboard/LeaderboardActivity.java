@@ -1,4 +1,4 @@
-package edu.northeastern.numad23fa_groupproject1;
+package edu.northeastern.numad23fa_groupproject1.leaderboard;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +17,9 @@ import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.northeastern.numad23fa_groupproject1.LanguageActivity;
+import edu.northeastern.numad23fa_groupproject1.R;
 
 public class LeaderboardActivity extends AppCompatActivity {
     RecyclerView recyclerView;

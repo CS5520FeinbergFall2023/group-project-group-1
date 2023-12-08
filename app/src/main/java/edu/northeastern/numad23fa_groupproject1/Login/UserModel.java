@@ -1,11 +1,9 @@
-package edu.northeastern.numad23fa_groupproject1;
+package edu.northeastern.numad23fa_groupproject1.Login;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
-
-import com.google.firebase.firestore.auth.User;
 
 public class UserModel implements Parcelable {
     String userId, username, email;
