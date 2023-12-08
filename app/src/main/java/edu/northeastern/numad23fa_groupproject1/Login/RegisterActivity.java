@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -32,9 +33,24 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textView;
-
     UserModel user;
     SharedPreferences sharedPreferences;
+
+    private int[] backgrounds = new int[] {R.drawable.background6, R.drawable.background5,
+            R.drawable.background4, R.drawable.background3, R.drawable.background2};
+    private int currentBackgroundIndex = 0;
+    private Handler backgroundChangeHandler = new Handler();
+    private Runnable backgroundChangeRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            findViewById(R.id.registerLayout).setBackgroundResource(backgrounds[currentBackgroundIndex]);
+            currentBackgroundIndex = (currentBackgroundIndex + 1) % backgrounds.length;
+
+            //scheduling the background photo to change every 5 seconds
+            backgroundChangeHandler.postDelayed(this, 3000);
+        }
+    };
 
     @Override
     public void onStart() {
@@ -58,13 +74,16 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        backgroundChangeHandler.post(backgroundChangeRunnable);
+
+        sharedPreferences = getSharedPreferences("admin1", MODE_PRIVATE);
+
         editEmailText = findViewById(R.id.email);
         editPasswordText = findViewById(R.id.password);
         registerButton = findViewById(R.id.registerButton);
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.loginNow);
 
-        sharedPreferences = getSharedPreferences("admin1", MODE_PRIVATE);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +148,12 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    // This is a helper function that creates a unique username based off of the email address
+    protected void onDestroy() {
+        super.onDestroy();
+        backgroundChangeHandler.removeCallbacks(backgroundChangeRunnable);
+    }
+
+//     This is a helper function that creates a unique username based off of the email address
 //    private String createUsername(String tempUsername) {
 //        String username = tempUsername;
 //        // search through database to find if the tempUsername is unique or not
