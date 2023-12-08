@@ -71,7 +71,7 @@ public class QuizActivity extends AppCompatActivity {
 
         btnSubmit.setOnClickListener(view -> {
             if (mSelectedOptionPosition == -1) {
-                if (!btnSubmit.getText().equals("GO TO NEXT QUESTION")) {
+                if (!(btnSubmit.getText().equals("GO TO NEXT QUESTION")  || btnSubmit.getText().equals("FINISH"))) {
                     Toast.makeText(this, "Please select an option to proceed!", Toast.LENGTH_SHORT).show();
                     return;
                 }
