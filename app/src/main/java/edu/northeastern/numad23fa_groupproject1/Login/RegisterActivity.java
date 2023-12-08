@@ -48,7 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
             currentBackgroundIndex = (currentBackgroundIndex + 1) % backgrounds.length;
 
             //scheduling the background photo to change every 5 seconds
-            backgroundChangeHandler.postDelayed(this, 3000);
+            backgroundChangeHandler.postDelayed(this, 5000);
         }
     };
 
