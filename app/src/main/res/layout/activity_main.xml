@@ -18,6 +18,25 @@
     <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
+        android:id="@+id/user_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="blank"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="10dp" />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/logout"
+        app:layout_constraintTop_toBottomOf="@id/user_details"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp" />
+
+    <TextView
         android:id="@+id/pickCountryTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

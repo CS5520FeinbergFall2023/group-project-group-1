@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -34,16 +36,40 @@ import edu.northeastern.numad23fa_groupproject1.History.HistoryModel;
 public class MainActivity extends AppCompatActivity {
     Spinner countrySpinner;
     TextView pickCountryTV, optionQuestionTV;
-
     Button languageBtn, historyBtn;
-
     ArrayList<HistoryModel> historyEvent;
-
     String countrySelected, mUserEmail;
+    FirebaseAuth auth;
+    Button logoutButton;
+    TextView textView;
+    FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        auth = FirebaseAuth.getInstance();
+        logoutButton = findViewById(R.id.logout);
+        textView = findViewById(R.id.user_details);
+        user = auth.getCurrentUser();
+        if (user == null) {
+            Intent userIntent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(userIntent);
+            finish();
+        } else {
+            textView.setText(user.getEmail().substring(0, user.getEmail().indexOf("@")));
+        }
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent userIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(userIntent);
+                finish();
+            }
+        });
 
         Intent intent = getIntent();
         if (intent != null) {
