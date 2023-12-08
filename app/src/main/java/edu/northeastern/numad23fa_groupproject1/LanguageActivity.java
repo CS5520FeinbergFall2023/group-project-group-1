@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -15,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ import java.util.Map;
 
 import edu.northeastern.numad23fa_groupproject1.Leaderboard.LeaderboardActivity;
 import edu.northeastern.numad23fa_groupproject1.Learn.ModuleSelectionActivity;
+import edu.northeastern.numad23fa_groupproject1.Login.UserModel;
 import edu.northeastern.numad23fa_groupproject1.Quiz.QuestionModel;
 import edu.northeastern.numad23fa_groupproject1.Quiz.QuizActivity;
 import edu.northeastern.numad23fa_groupproject1.Quiz.QuizDataCallback;
@@ -38,12 +41,26 @@ public class LanguageActivity extends AppCompatActivity {
 
     List<QuestionModel> questionList = new ArrayList<>();
 
+    SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language);
-        Intent intent = getIntent();
-        country = intent.getStringExtra("COUNTRY");
+
+        // retrieve country from shared preference
+        sharedPreferences = getSharedPreferences("admin1", MODE_PRIVATE);
+        country = sharedPreferences.getString("COUNTRY", "");
+        Log.d("mCountry ", country);
+
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("USER", "");
+        UserModel user = gson.fromJson(json, UserModel.class);
+        Log.d("mUser", user.getEmail());
+
+//        Intent intent = getIntent();
+//        country = intent.getStringExtra("COUNTRY");
+
         quizBtn = findViewById(R.id.quizBtn);
         leaderBtn = findViewById(R.id.leaderBoardBtn);
         learnBtn = findViewById(R.id.learnBtn);

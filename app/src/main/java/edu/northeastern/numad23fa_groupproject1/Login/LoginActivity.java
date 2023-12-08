@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -18,6 +19,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
 
 import edu.northeastern.numad23fa_groupproject1.MainActivity;
 import edu.northeastern.numad23fa_groupproject1.R;
@@ -30,14 +35,19 @@ public class LoginActivity extends AppCompatActivity {
     ProgressBar progressBar;
     TextView textView;
 
+    SharedPreferences sharedPreferences;
+
     @Override
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();        }
+        if(currentUser != null && sharedPreferences != null) {
+            if (sharedPreferences.contains("USER")) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
     }
 
     @Override
@@ -47,11 +57,14 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        sharedPreferences = getSharedPreferences("admin1", MODE_PRIVATE);
+
         editEmailText = findViewById(R.id.email);
         editPasswordText = findViewById(R.id.password);
         loginButton = findViewById(R.id.loginButton);
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.registerNow);
+
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,8 +79,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
                 String email, password;
-                email = String.valueOf(editEmailText.getText());
-                password = String.valueOf(editPasswordText.getText());
+                email = String.valueOf(editEmailText.getText()).trim();
+                password = String.valueOf(editPasswordText.getText()).trim();
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(LoginActivity.this, "Enter email", Toast.LENGTH_SHORT).show();
@@ -88,16 +101,37 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(LoginActivity.this, "Login successfully.",
                                             Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    saveUser(mAuth.getCurrentUser().getUid());
                                     startActivity(intent);
                                     finish();
                                 } else {
-//                                    Toast.makeText(LoginActivity.this, "Authentication failed.",
-//                                            Toast.LENGTH_SHORT).show();
                                     Toast.makeText(LoginActivity.this, "User Authentication Failed: "
                                             + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
+            }
+        });
+    }
+
+    // This is a helper function that saves current user locally
+    private void saveUser(String uid) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference collectionRef = db.collection("users");
+        collectionRef.document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot doc = task.getResult();
+                    if (doc.exists()) {
+                        UserModel user = doc.toObject(UserModel.class);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        Gson gson = new Gson();
+                        String json = gson.toJson(user);
+                        editor.putString("USER", json);
+                        editor.commit();
+                    }
+                }
             }
         });
     }

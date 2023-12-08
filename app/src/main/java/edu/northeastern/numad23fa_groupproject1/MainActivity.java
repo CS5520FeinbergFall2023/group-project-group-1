@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -31,6 +33,7 @@ import java.util.Map;
 import edu.northeastern.numad23fa_groupproject1.History.HistoryActivity;
 import edu.northeastern.numad23fa_groupproject1.History.HistoryModel;
 import edu.northeastern.numad23fa_groupproject1.Login.LoginActivity;
+import edu.northeastern.numad23fa_groupproject1.Login.UserModel;
 
 public class MainActivity extends AppCompatActivity {
     Spinner countrySpinner;
@@ -43,21 +46,31 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     FirebaseUser user;
 
+    SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        auth = FirebaseAuth.getInstance();
+        // retrieve current user from sharedPreference
+        sharedPreferences = getSharedPreferences("admin1", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("USER", "");
+        UserModel user = gson.fromJson(json, UserModel.class);
+
+
+//        auth = FirebaseAuth.getInstance();
         logoutButton = findViewById(R.id.logout);
         textView = findViewById(R.id.user_details);
-        user = auth.getCurrentUser();
+//        user = auth.getCurrentUser();
+
         if (user == null) {
             Intent userIntent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(userIntent);
             finish();
         } else {
-            textView.setText(user.getEmail().substring(0, user.getEmail().indexOf("@")));
+            textView.setText(user.getUsername());
         }
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
@@ -70,10 +83,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent = getIntent();
-        if (intent != null) {
-            mUserEmail = intent.getStringExtra("USER_NAME");
-        }
+//        Intent intent = getIntent();
+//        if (intent != null) {
+//            mUserEmail = intent.getStringExtra("USER_NAME");
+//        }
 
         //test
         historyEvent = new ArrayList<>();
@@ -134,10 +147,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedCountry = parent.getItemAtPosition(position).toString();
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("COUNTRY", selectedCountry);
+                editor.commit();
 
                 //   make the option buttons visible if a country is selected
                 if (!selectedCountry.equals("Select a country...")) {
-                    Log.d(TAG, "country selected: " + selectedCountry);
+//                    Log.d(TAG, "country selected: " + selectedCountry);
                     countrySelected = selectedCountry;
                     optionQuestionTV.setVisibility(View.VISIBLE);
                     languageBtn.setText("Language: " + getLanguage(selectedCountry));
@@ -159,8 +175,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent langugageActivityIntent = new Intent(MainActivity.this, LanguageActivity.class);
-                langugageActivityIntent.putExtra("USER_NAME", mUserEmail);
-                langugageActivityIntent.putExtra("COUNTRY", countrySelected);
+//                langugageActivityIntent.putExtra("USER_NAME", mUserEmail);
+//                langugageActivityIntent.putExtra("COUNTRY", countrySelected);
                 startActivity(langugageActivityIntent);
             }
         });
