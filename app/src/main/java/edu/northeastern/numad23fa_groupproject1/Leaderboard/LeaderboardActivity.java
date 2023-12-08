@@ -16,12 +16,13 @@ import com.google.firebase.firestore.Query;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.northeastern.numad23fa_groupproject1.Login.UserModel;
 import edu.northeastern.numad23fa_groupproject1.R;
 
 public class LeaderboardActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ProgressBar progressBar;
-    List<ScoreData> list;
+    List<UserModel> list;
     ScoreAdapter adapter;
 
     FirebaseFirestore db;
@@ -68,7 +69,7 @@ public class LeaderboardActivity extends AppCompatActivity {
                         list.clear(); // Clear the list before adding new data
 
                         for (DocumentSnapshot document : snapshot.getDocuments()) {
-                            ScoreData data = document.toObject(ScoreData.class);
+                            UserModel data = document.toObject(UserModel.class);
                             if (data != null) {
                                 list.add(data);
                             }

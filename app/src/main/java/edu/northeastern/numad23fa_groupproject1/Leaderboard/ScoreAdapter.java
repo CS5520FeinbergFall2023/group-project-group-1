@@ -13,15 +13,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import edu.northeastern.numad23fa_groupproject1.Login.UserModel;
 import edu.northeastern.numad23fa_groupproject1.R;
 
 public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewAdapter> {
 
-    List<ScoreData> list;
+    List<UserModel> list;
     Context context;
     int i = 1;
 
-    public ScoreAdapter(List<ScoreData> list, Context context) {
+    public ScoreAdapter(List<UserModel> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -37,8 +38,8 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewAda
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ScoreViewAdapter holder, int position) {
-        ScoreData currentItem = list.get(position);
-        holder.name.setText(currentItem.getName());
+        UserModel currentItem = list.get(position);
+        holder.name.setText(currentItem.getUsername());
         holder.score.setText("score: " + String.valueOf(currentItem.getScore()));
         holder.rank.setText("#" + String.valueOf(getItemCount() - position));
         //Glide.with(context).load(currentItem.getImage()).into(holder.imageView);
