@@ -1,4 +1,4 @@
-package edu.northeastern.numad23fa_groupproject1;
+package edu.northeastern.numad23fa_groupproject1.Leaderboard;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,10 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.google.android.material.color.utilities.Score;
-
 import java.util.List;
+
+import edu.northeastern.numad23fa_groupproject1.R;
 
 public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewAdapter> {
 

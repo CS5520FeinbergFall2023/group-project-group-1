@@ -1,4 +1,4 @@
-package edu.northeastern.numad23fa_groupproject1;
+package edu.northeastern.numad23fa_groupproject1.Leaderboard;
 
 public class ScoreData {
     String name;

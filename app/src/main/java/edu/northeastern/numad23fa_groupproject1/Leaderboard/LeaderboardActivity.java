@@ -18,6 +18,9 @@ import com.google.firebase.firestore.Query;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.northeastern.numad23fa_groupproject1.Leaderboard.ScoreAdapter;
+import edu.northeastern.numad23fa_groupproject1.Leaderboard.ScoreData;
+
 public class LeaderboardActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ProgressBar progressBar;

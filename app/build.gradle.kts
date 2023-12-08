@@ -46,4 +46,5 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.49")
     annotationProcessor("com.google.dagger:hilt-compiler:2.49")
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
+    implementation("com.google.code.gson:gson:2.10.1")
 }
