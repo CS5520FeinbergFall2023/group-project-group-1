@@ -22,7 +22,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private int mSelectedOptionPosition = 0;
     private int mCorrectAnswers = 0;
-    private String mUserName,country = null;
+//    private String mUserName,country = null;
 
 
     // Declare UI elements
@@ -35,13 +35,15 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
         mQuestionsList = new ArrayList<>();
         Intent intent = getIntent();
         if (intent != null) {
-            mUserName = intent.getStringExtra("USER_NAME");
-            country = intent.getStringExtra("COUNTRY");
+//            mUserName = intent.getStringExtra("USER_NAME");
+//            country = intent.getStringExtra("COUNTRY");
             mQuestionsList = getIntent().getParcelableArrayListExtra("questionArray");
         }
+
         // Initialize UI elements
         tvOptionOne = findViewById(R.id.tv_option_one);
         tvOptionTwo = findViewById(R.id.tv_option_two);
@@ -70,13 +72,14 @@ public class QuizActivity extends AppCompatActivity {
         tvOptionFour.setOnClickListener(view -> selectedOptionView(tvOptionFour, 3));
 
         btnSubmit.setOnClickListener(view -> {
+            // TODO: change so that it will change to new activity if an answer is chosen
             if (mSelectedOptionPosition == 0) {
                 mCurrentPosition++;
                 if (mCurrentPosition <= mQuestionsList.size()) {
                     setQuestion();
                 } else {
                     Intent intent = new Intent(this, QuizResultActivity.class);
-                    intent.putExtra("USER_NAME", mUserName);
+//                    intent.putExtra("USER_NAME", mUserName);
                     intent.putExtra("CORRECT_ANSWERS", mCorrectAnswers);
                     intent.putExtra("QUESTION_LIST_SIZE", mQuestionsList.size());
                     startActivity(intent);

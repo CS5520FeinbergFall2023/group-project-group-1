@@ -103,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     // create a new corresponding document in the could firestore for this new user
                                     FirebaseUser newUser = mAuth.getCurrentUser();
                                     String uid = mAuth.getCurrentUser().getUid();
-                                    user = new UserModel(uid, email);
+                                    user = new UserModel(uid, email, 0);
                                     FirebaseFirestore.getInstance().collection("users").document(uid).set(user);
 
                                     // save current user locally
