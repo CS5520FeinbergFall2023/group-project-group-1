@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -34,8 +35,23 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textView;
-
     SharedPreferences sharedPreferences;
+
+    private int[] backgrounds = new int[] {R.drawable.background2, R.drawable.background3,
+            R.drawable.background4, R.drawable.background5, R.drawable.background6};
+    private int currentBackgroundIndex = 0;
+    private Handler backgroundChangeHandler = new Handler();
+    private Runnable backgroundChangeRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            findViewById(R.id.loginLayout).setBackgroundResource(backgrounds[currentBackgroundIndex]);
+            currentBackgroundIndex = (currentBackgroundIndex + 1) % backgrounds.length;
+
+            //scheduling the background photo to change every 5 seconds
+            backgroundChangeHandler.postDelayed(this, 5000);
+        }
+    };
 
     @Override
     public void onStart() {
@@ -54,6 +70,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
+
+        backgroundChangeHandler.post(backgroundChangeRunnable);
 
         sharedPreferences = getSharedPreferences("admin1", MODE_PRIVATE);
 
@@ -110,6 +128,12 @@ public class LoginActivity extends AppCompatActivity {
                         });
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        backgroundChangeHandler.removeCallbacks(backgroundChangeRunnable);
     }
 
     // This is a helper function that saves current user locally
