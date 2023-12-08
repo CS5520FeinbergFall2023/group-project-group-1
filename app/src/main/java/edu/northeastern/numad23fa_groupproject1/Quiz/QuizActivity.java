@@ -1,4 +1,4 @@
-package edu.northeastern.numad23fa_groupproject1;
+package edu.northeastern.numad23fa_groupproject1.Quiz;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -12,11 +12,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import edu.northeastern.numad23fa_groupproject1.R;
+
 
 public class QuizActivity extends AppCompatActivity {
 
     private int mCurrentPosition = 1; // Default and the first question position
-    private ArrayList<Question> mQuestionsList = null;
+    private ArrayList<QuestionModel> mQuestionsList = null;
 
     private int mSelectedOptionPosition = 0;
     private int mCorrectAnswers = 0;
@@ -81,7 +83,7 @@ public class QuizActivity extends AppCompatActivity {
                     finish();
                 }
             } else {
-                Question question = mQuestionsList.get(mCurrentPosition - 1);
+                QuestionModel question = mQuestionsList.get(mCurrentPosition - 1);
 
                 if (question.getCorrectAnswer() != mSelectedOptionPosition) {
                     answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg);
@@ -103,7 +105,7 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void setQuestion() {
-        Question question = mQuestionsList.get(mCurrentPosition - 1);
+        QuestionModel question = mQuestionsList.get(mCurrentPosition - 1);
 
         defaultOptionsView();
 
@@ -117,7 +119,7 @@ public class QuizActivity extends AppCompatActivity {
         tvProgress.setText(mCurrentPosition + "/" + progressBar.getMax());
 
         tvQuestion.setText(question.getQuestion());
-        // Assuming setImageResource is a method in your Question class to set the image
+        // Assuming setImageResource is a method in your QuestionModel class to set the image
         // Replace it with the appropriate method or use an ImageView in your layout
         // ivImage.setImageResource(question.getImage());
         tvOptionOne.setText(question.getOptionOne());

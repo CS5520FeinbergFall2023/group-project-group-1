@@ -1,4 +1,4 @@
-package edu.northeastern.numad23fa_groupproject1;
+package edu.northeastern.numad23fa_groupproject1.Quiz;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +13,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import edu.northeastern.numad23fa_groupproject1.LanguageActivity;
+import edu.northeastern.numad23fa_groupproject1.R;
 
 public class QuizResultActivity extends AppCompatActivity {
     FirebaseFirestore db;

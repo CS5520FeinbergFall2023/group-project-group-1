@@ -21,17 +21,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.HashMap;
 
 import edu.northeastern.numad23fa_groupproject1.History.HistoryActivity;
 import edu.northeastern.numad23fa_groupproject1.History.HistoryModel;
+import edu.northeastern.numad23fa_groupproject1.Login.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
     Spinner countrySpinner;
