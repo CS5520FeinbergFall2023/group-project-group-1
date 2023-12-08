@@ -17,14 +17,14 @@ public class UserModel implements Parcelable {
     public UserModel(String mUserId, String mEmail, String mUsername) {
         this.userId = mUserId;
         this.email = mEmail;
-        this.username = mEmail;
+        this.username = mUsername;
         this.score = 0;
     }
 
     public UserModel(String mUserId, String mEmail) {
         this.userId = mUserId;
         this.email = mEmail;
-        this.username = mEmail;
+        this.username = mEmail.split("@")[0];;
         this.score = 0;
     }
 

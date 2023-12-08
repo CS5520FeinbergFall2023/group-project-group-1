@@ -10,17 +10,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.auth.User;
+
 import java.util.List;
 
 import edu.northeastern.numad23fa_groupproject1.R;
+import edu.northeastern.numad23fa_groupproject1.UserModel;
 
 public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewAdapter> {
 
-    List<ScoreData> list;
+    List<UserModel> list;
     Context context;
     int i = 1;
 
-    public ScoreAdapter(List<ScoreData> list, Context context) {
+    public ScoreAdapter(List<UserModel> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -35,8 +38,8 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewAda
 
     @Override
     public void onBindViewHolder(@NonNull ScoreViewAdapter holder, int position) {
-        ScoreData currentItem = list.get(position);
-        holder.name.setText(currentItem.getName());
+        UserModel currentItem = list.get(position);
+        holder.name.setText(currentItem.getUsername());
         holder.score.setText("score: " + String.valueOf(currentItem.getScore()));
 //        holder.rank.setText(String.valueOf(i));
         holder.rank.setText("#" + String.valueOf(getItemCount() - position));

@@ -38,12 +38,15 @@ public class RegisterActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null && sharedPreferences.contains("USER")){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        if(currentUser != null && sharedPreferences != null){
+            if (sharedPreferences.contains("USER")) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 //            intent.putExtra("USER_ID", currentUser.getUid());
 //            intent.putExtra("USER", user);
-            startActivity(intent);
-            finish();        }
+                startActivity(intent);
+                finish();
+            }
+        }
     }
 
     @Override

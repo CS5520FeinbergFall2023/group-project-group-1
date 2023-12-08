@@ -24,7 +24,6 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.auth.User;
 import com.google.gson.Gson;
 
 public class LoginActivity extends AppCompatActivity {
@@ -41,11 +40,14 @@ public class LoginActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null && sharedPreferences.contains("USER")){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.putExtra("USER_ID", currentUser.getUid());
-            startActivity(intent);
-            finish();        }
+        if(currentUser != null && sharedPreferences != null){
+            if (sharedPreferences.contains("USER")) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                intent.putExtra("USER_ID", currentUser.getUid());
+                startActivity(intent);
+                finish();
+            }
+        }
     }
 
     @Override
@@ -54,6 +56,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
+
+        sharedPreferences = getSharedPreferences("admin1", MODE_PRIVATE);
 
         editEmailText = findViewById(R.id.email);
         editPasswordText = findViewById(R.id.password);
@@ -98,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     intent.putExtra("USER_ID", mAuth.getCurrentUser().getUid());
                                     // TODO: need to get the user information and then create a local user and then put it in shared preference
-//                                    saveUser(mAuth.getCurrentUser().getUid());
+                                    saveUser(mAuth.getCurrentUser().getUid());
                                     startActivity(intent);
                                     finish();
                                 } else {
