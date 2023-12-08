@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import edu.northeastern.numad23fa_groupproject1.Leaderboard.LeaderboardActivity;
 import edu.northeastern.numad23fa_groupproject1.Learn.ModuleSelectionActivity;
 import edu.northeastern.numad23fa_groupproject1.Quiz.QuestionModel;
 import edu.northeastern.numad23fa_groupproject1.Quiz.QuizActivity;
@@ -65,7 +66,7 @@ public class LanguageActivity extends AppCompatActivity {
         leaderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent LeaderboardIntent = new Intent(LanguageActivity.this, edu.northeastern.numad23fa_groupproject1.LeaderboardActivity.class);
+                Intent LeaderboardIntent = new Intent(LanguageActivity.this, LeaderboardActivity.class);
                 LeaderboardIntent.putExtra("USER_NAME", "testUser");
                 startActivity(LeaderboardIntent);
             }

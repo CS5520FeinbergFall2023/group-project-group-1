@@ -1,5 +1,6 @@
 package edu.northeastern.numad23fa_groupproject1.Leaderboard;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,14 +34,15 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewAda
         return new ScoreViewAdapter(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ScoreViewAdapter holder, int position) {
         ScoreData currentItem = list.get(position);
         holder.name.setText(currentItem.getName());
-        holder.score.setText(String.valueOf(currentItem.getScore()));
-        holder.rank.setText(String.valueOf(i));
+        holder.score.setText("score: " + String.valueOf(currentItem.getScore()));
+        holder.rank.setText("#" + String.valueOf(getItemCount() - position));
         //Glide.with(context).load(currentItem.getImage()).into(holder.imageView);
-        i++;
+//        i++;
 
     }
 
@@ -57,8 +59,8 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewAda
             super(itemView);
             imageView = itemView.findViewById(R.id.score_user_img);
             name = itemView.findViewById(R.id.score_user_name);
-            score = itemView.findViewById(R.id.score_user_result);
-            rank = itemView.findViewById(R.id.score_user_rank);
+            score = itemView.findViewById(R.id.static_score_user_result);
+            rank = itemView.findViewById(R.id.static_score_user_rank);
         }
     }
 }
