@@ -11,10 +11,13 @@ public class ModuleContentModel implements Parcelable {
 
     private String translation;
 
+    private String identifier;
 
-    public ModuleContentModel(String nativePhrase, String translation) {
+
+    public ModuleContentModel(String nativePhrase, String translation, String identifier) {
         this.nativePhrase = nativePhrase;
         this.translation = translation;
+        this.identifier = identifier;
     }
 
     protected ModuleContentModel(Parcel in) {
@@ -40,6 +43,10 @@ public class ModuleContentModel implements Parcelable {
 
     public String getTranslation() {
         return translation;
+    }
+
+    public String getIdentifier() {
+        return identifier;
     }
 
     @Override

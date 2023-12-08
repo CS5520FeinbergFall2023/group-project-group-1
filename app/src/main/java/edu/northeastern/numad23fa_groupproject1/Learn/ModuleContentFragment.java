@@ -8,6 +8,7 @@ import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.nio.ByteBuffer;
@@ -53,6 +54,8 @@ public class ModuleContentFragment extends Fragment {
         TextView translatedPhrase = view.findViewById(R.id.translated_phrase);
         nativePhrase.setText(model.getNativePhrase());
         translatedPhrase.setText(model.getTranslation());
+        ImageView img= view.findViewById(R.id.supporting_image);
+        img.setImageResource(R.drawable.namaste);
         return view;
     }
 }
