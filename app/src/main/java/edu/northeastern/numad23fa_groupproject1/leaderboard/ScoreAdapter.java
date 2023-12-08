@@ -1,4 +1,4 @@
-package edu.northeastern.numad23fa_groupproject1.Leaderboard;
+package edu.northeastern.numad23fa_groupproject1.leaderboard;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

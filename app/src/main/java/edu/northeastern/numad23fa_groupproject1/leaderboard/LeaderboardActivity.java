@@ -1,4 +1,4 @@
-package edu.northeastern.numad23fa_groupproject1.Leaderboard;
+package edu.northeastern.numad23fa_groupproject1.leaderboard;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;

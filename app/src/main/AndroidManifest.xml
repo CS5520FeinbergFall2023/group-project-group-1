@@ -17,7 +17,7 @@
             android:name=".Learn.ModuleSelectionActivity"
             android:exported="false" />
         <activity
-            android:name=".Leaderboard.LeaderboardActivity"
+            android:name=".leaderboard.LeaderboardActivity"
             android:exported="false" />
         <activity
             android:name=".Login.RegisterActivity"
