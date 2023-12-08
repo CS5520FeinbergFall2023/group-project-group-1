@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public class QuizActivity extends AppCompatActivity {
     private int mCurrentPosition = 1; // Default and the first question position
     private ArrayList<QuestionModel> mQuestionsList = null;
 
-    private int mSelectedOptionPosition = 0;
+    private int mSelectedOptionPosition = -1;
     private int mCorrectAnswers = 0;
 //    private String mUserName,country = null;
 
@@ -62,9 +63,6 @@ public class QuizActivity extends AppCompatActivity {
 
 
 
-
-
-
     private void setOnClickListeners() {
         tvOptionOne.setOnClickListener(view -> selectedOptionView(tvOptionOne,0));
         tvOptionTwo.setOnClickListener(view -> selectedOptionView(tvOptionTwo, 1));
@@ -72,14 +70,16 @@ public class QuizActivity extends AppCompatActivity {
         tvOptionFour.setOnClickListener(view -> selectedOptionView(tvOptionFour, 3));
 
         btnSubmit.setOnClickListener(view -> {
-            // TODO: change so that it will change to new activity if an answer is chosen
-            if (mSelectedOptionPosition == 0) {
+            if (mSelectedOptionPosition == -1) {
+                if (!btnSubmit.getText().equals("GO TO NEXT QUESTION")) {
+                    Toast.makeText(this, "Please select an option to proceed!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 mCurrentPosition++;
                 if (mCurrentPosition <= mQuestionsList.size()) {
                     setQuestion();
                 } else {
                     Intent intent = new Intent(this, QuizResultActivity.class);
-//                    intent.putExtra("USER_NAME", mUserName);
                     intent.putExtra("CORRECT_ANSWERS", mCorrectAnswers);
                     intent.putExtra("QUESTION_LIST_SIZE", mQuestionsList.size());
                     startActivity(intent);
@@ -102,7 +102,7 @@ public class QuizActivity extends AppCompatActivity {
                     btnSubmit.setText("GO TO NEXT QUESTION");
                 }
 
-                mSelectedOptionPosition = 0;
+                mSelectedOptionPosition = -1;
             }
         });
     }
