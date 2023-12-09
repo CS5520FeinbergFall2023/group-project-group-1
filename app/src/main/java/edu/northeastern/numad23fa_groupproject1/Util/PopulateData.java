@@ -42,6 +42,7 @@ public class PopulateData {
                 });
     }
 
+
     /**
      * Creates a map representing a historical event.
      */
@@ -57,15 +58,30 @@ public class PopulateData {
     /**
      * Populates quiz data into Firestore.
      */
-    private void populateQuizDataStub() {
+    public void populateQuizDataStub() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String collectionName = "countries";
-        String documentId = "india";
+        String documentId = "malaysia";
 
         // Create a list to store quiz questions
         List<Map<String, Object>> newQuestions = new ArrayList<>();
-        newQuestions.add(createQuestion("What script is used to write Hindi?", Arrays.asList("Cyrillic", "Arabic", "Devanagari", "Latin"), "Devanagari"));
-        // Add more quiz questions...
+        newQuestions.add(createQuestion("Which of the following is the Malay word for \"water\"?", Arrays.asList("Udara", "Tanah", "Api", "Air"), "3"));
+
+        newQuestions.add(createQuestion("How do you say \"Thank you\" in Malay?", Arrays.asList("Terima kasih", "Maaf", "Selamat malam", "Sama-sama"), "0"));
+
+        newQuestions.add(createQuestion("Which of these means \"How are you?\" in Malay?", Arrays.asList("Apa khabar?", "Selamat tinggal", "Tolong", "Nama saya"), "0"));
+
+        newQuestions.add(createQuestion("What is the Malay word for \"food\"?", Arrays.asList("Makan", "Minum", "Roti", "Makanan"), "3"));
+
+        newQuestions.add(createQuestion("Which number is \"lima\" in Malay?", Arrays.asList("Two", "Four", "Five", "Seven"), "2"));
+
+        newQuestions.add(createQuestion("What is the Malay term for \"I love you\"?", Arrays.asList("Saya suka kamu", "Saya rindu kamu", "Saya cinta kamu", "Saya sayang kamu"), "2"));
+
+        newQuestions.add(createQuestion("How do you say \"Excuse me\" or \"I'm sorry\" in Malay?", Arrays.asList("Maaf", "Terima kasih", "Tolong", "Selamat jalan"), "0"));
+
+        newQuestions.add(createQuestion("Which of these means \"Yes\" in Malay?", Arrays.asList("Tidak", "Ya", "Boleh", "Mungkin"), "1"));
+
+        newQuestions.add(createQuestion("What is the Malay word for \"book\"?", Arrays.asList("Buku", "Kertas", "Pensel", "Meja"), "0"));
 
         // Update Firestore with quiz questions
         db.collection(collectionName)
