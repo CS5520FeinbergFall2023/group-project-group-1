@@ -9,7 +9,11 @@
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:textSize="10sp"
+        android:text="Module"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium"
+        android:backgroundTint="@color/colorButton"
         />
 
 </LinearLayout>
