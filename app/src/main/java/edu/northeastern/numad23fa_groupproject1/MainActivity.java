@@ -59,19 +59,7 @@ public class MainActivity extends AppCompatActivity {
         String json = sharedPreferences.getString("USER", "");
         UserModel user = gson.fromJson(json, UserModel.class);
 
-
-//        auth = FirebaseAuth.getInstance();
         logoutButton = findViewById(R.id.logout);
-        textView = findViewById(R.id.user_details);
-//        user = auth.getCurrentUser();
-
-        if (user == null) {
-            Intent userIntent = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(userIntent);
-            finish();
-        } else {
-            textView.setText(user.getUsername());
-        }
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,50 +68,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent userIntent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(userIntent);
                 finish();
-            }
-        });
-
-//        Intent intent = getIntent();
-//        if (intent != null) {
-//            mUserEmail = intent.getStringExtra("USER_NAME");
-//        }
-
-        //test
-        historyEvent = new ArrayList<>();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        // Fetch the country document
-        CollectionReference collectionRef = db.collection("countries");
-
-        // Fetch all documents in the collection
-        collectionRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (DocumentSnapshot document : task.getResult()) {
-                        String culture = document.getString("culture");
-                        ArrayList<Map<String, String>>  historyList = (ArrayList<Map<java.lang.String,java.lang.String>>) document.get("historyData");
-                        if (historyList != null) {
-                            // Iterate through each map in the ArrayList
-                            for (Map<String, String> historyMap : historyList) {
-                                HistoryModel historyModel = new HistoryModel();
-                                // Iterate through each key in the map
-                                for (String key : historyMap.keySet()) {
-                                    historyModel.setDate(historyMap.get("date"));
-                                    historyModel.setDescription(historyMap.get("desc"));
-                                    historyModel.setEventName(historyMap.get("event"));
-                                    historyModel.setImageId(0);
-                                    historyModel.setVisibility(false);
-                                }
-                                historyEvent.add(historyModel);
-                            }
-                        } else {
-                            Log.d("Firestore", "No history field in the document.");
-                        }
-                        String language = document.getString("language");
-                    }
-                } else {
-                    Log.w("Firestore", "Error getting documents.", task.getException());
-                }
             }
         });
 
@@ -203,7 +147,45 @@ public class MainActivity extends AppCompatActivity {
 //
 //            }
 //        });
-
+        //
+        //test
+//        historyEvent = new ArrayList<>();
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        // Fetch the country document
+//        CollectionReference collectionRef = db.collection("countries");
+//
+//        // Fetch all documents in the collection
+//        collectionRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    for (DocumentSnapshot document : task.getResult()) {
+//                        String culture = document.getString("culture");
+//                        ArrayList<Map<String, String>>  historyList = (ArrayList<Map<java.lang.String,java.lang.String>>) document.get("historyData");
+//                        if (historyList != null) {
+//                            // Iterate through each map in the ArrayList
+//                            for (Map<String, String> historyMap : historyList) {
+//                                HistoryModel historyModel = new HistoryModel();
+//                                // Iterate through each key in the map
+//                                for (String key : historyMap.keySet()) {
+//                                    historyModel.setDate(historyMap.get("date"));
+//                                    historyModel.setDescription(historyMap.get("desc"));
+//                                    historyModel.setEventName(historyMap.get("event"));
+//                                    historyModel.setImageId(0);
+//                                    historyModel.setVisibility(false);
+//                                }
+//                                historyEvent.add(historyModel);
+//                            }
+//                        } else {
+//                            Log.d("Firestore", "No history field in the document.");
+//                        }
+//                        String language = document.getString("language");
+//                    }
+//                } else {
+//                    Log.w("Firestore", "Error getting documents.", task.getException());
+//                }
+//            }
+//        });
     }
 
     private String getLanguage(String country) {
@@ -229,4 +211,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return -1;
     }
+
 }

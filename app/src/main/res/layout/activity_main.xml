@@ -7,36 +7,31 @@
     android:background="@drawable/backgroundmain2"
     tools:context=".MainActivity">
 
-    <!--    <Button-->
-    <!--        android:id="@+id/aboutBtn"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="About"-->
-    <!--        app:layout_constraintBottom_toTopOf="@+id/pickCountryTV"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="0.5"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-    <TextView
-        android:id="@+id/user_details"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="blank"
-        app:layout_constraintTop_toTopOf="parent"
-        android:fontFamily="sans-serif-medium"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="15dp" />
+<!--    <TextView-->
+<!--        android:id="@+id/user_details"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="blank"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:fontFamily="sans-serif-medium"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:layout_margin="15dp" />-->
 
     <Button
         android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/logout"
-        app:layout_constraintTop_toBottomOf="@id/user_details"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="#F8BCE1"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:padding="12.5dp"
+        android:textColor="@color/black"
+        android:text="l o g o u t"
+        android:textSize="15dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="10dp" />
+        tools:layout_editor_absoluteY="16dp" />
 
     <TextView
         android:id="@+id/pickCountryTV"
@@ -80,6 +75,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Language: "
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="bold"
+        android:textSize="17dp"
+        android:backgroundTint="#8DB2F3"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/historyBtn"
         app:layout_constraintEnd_toEndOf="parent"
@@ -92,7 +91,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="History"
+        android:backgroundTint="#8DB2F3"
         android:visibility="invisible"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="bold"
+        android:textSize="17dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
