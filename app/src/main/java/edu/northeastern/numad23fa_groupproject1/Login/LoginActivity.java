@@ -27,6 +27,7 @@ import com.google.gson.Gson;
 
 import edu.northeastern.numad23fa_groupproject1.MainActivity;
 import edu.northeastern.numad23fa_groupproject1.R;
+import edu.northeastern.numad23fa_groupproject1.Util.PopulateData;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -68,6 +69,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        /*
+        // Call this to populate data in firestore :)
+        PopulateData pd = new PopulateData();
+        pd.populateQuizDataStub(); */
 
         mAuth = FirebaseAuth.getInstance();
 

@@ -108,4 +108,12 @@ public class QuizResultActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent setIntent = new Intent(QuizResultActivity.this, LanguageActivity.class);
+        startActivity(setIntent);
+    }
+
 }

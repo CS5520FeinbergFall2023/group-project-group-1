@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import edu.northeastern.numad23fa_groupproject1.LanguageActivity;
 import edu.northeastern.numad23fa_groupproject1.R;
 
 
@@ -71,7 +72,7 @@ public class QuizActivity extends AppCompatActivity {
 
         btnSubmit.setOnClickListener(view -> {
             if (mSelectedOptionPosition == -1) {
-                if (!(btnSubmit.getText().equals("GO TO NEXT QUESTION")  || btnSubmit.getText().equals("FINISH"))) {
+                if (!(btnSubmit.getText().equals("N E X T  Q U E S T I O N")  || btnSubmit.getText().equals("F I N I S H"))) {
                     Toast.makeText(this, "Please select an option to proceed!", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -97,9 +98,9 @@ public class QuizActivity extends AppCompatActivity {
                 answerView(question.getCorrectAnswer(), R.drawable.correct_option_border_bg);
 
                 if (mCurrentPosition == mQuestionsList.size()) {
-                    btnSubmit.setText("FINISH");
+                    btnSubmit.setText("F I N I S H");
                 } else {
-                    btnSubmit.setText("GO TO NEXT QUESTION");
+                    btnSubmit.setText("N E X T  Q U E S T I O N");
                 }
 
                 mSelectedOptionPosition = -1;
@@ -113,9 +114,11 @@ public class QuizActivity extends AppCompatActivity {
         defaultOptionsView();
 
         if (mCurrentPosition == mQuestionsList.size()) {
-            btnSubmit.setText("FINISH");
+            btnSubmit.setText("F I N I S H");
+            btnSubmit.setBackgroundColor(Color.parseColor("#8DB2F3"));
         } else {
-            btnSubmit.setText("SUBMIT");
+            btnSubmit.setText("S U B M I T");
+            btnSubmit.setBackgroundColor(Color.parseColor("#8DB2F3"));
         }
 
         progressBar.setProgress(mCurrentPosition);
@@ -137,7 +140,7 @@ public class QuizActivity extends AppCompatActivity {
         mSelectedOptionPosition = selectedOptionNum;
 
         tv.setTextColor(Color.parseColor("#363A43"));
-        tv.setTypeface(tv.getTypeface(), Typeface.BOLD);
+//        tv.setTypeface(tv.getTypeface(), Typeface.BOLD);
         tv.setBackground(ContextCompat.getDrawable(this, R.drawable.selected_option_border_bg));
     }
 
@@ -149,8 +152,7 @@ public class QuizActivity extends AppCompatActivity {
         options.add(3, tvOptionFour);
 
         for (TextView option : options) {
-            option.setTextColor(Color.parseColor("#7A8089"));
-            option.setTypeface(Typeface.DEFAULT);
+            option.setTextColor(Color.parseColor("#44474C"));
             option.setBackground(ContextCompat.getDrawable(this, R.drawable.default_option_border_bg));
         }
     }
@@ -170,5 +172,12 @@ public class QuizActivity extends AppCompatActivity {
                 tvOptionFour.setBackground(ContextCompat.getDrawable(this, drawableView));
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent setIntent = new Intent(QuizActivity.this, LanguageActivity.class);
+        startActivity(setIntent);
     }
 }

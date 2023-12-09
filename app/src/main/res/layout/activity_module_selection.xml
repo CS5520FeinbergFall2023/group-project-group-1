@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Learn.ModuleSelectionActivity">
+    tools:context=".Learn.ModuleSelectionActivity"
+    android:background="@drawable/backgroundmain2">
 
 
     <androidx.recyclerview.widget.RecyclerView
