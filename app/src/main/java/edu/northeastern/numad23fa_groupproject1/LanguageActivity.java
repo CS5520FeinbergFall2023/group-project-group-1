@@ -132,5 +132,12 @@ public class LanguageActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent setIntent = new Intent(LanguageActivity.this, MainActivity.class);
+        startActivity(setIntent);
+    }
 }
 
