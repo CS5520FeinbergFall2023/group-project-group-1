@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Quiz.QuizActivity"
+    android:background="@drawable/backgroundmain2"
     android:fillViewport="true">
 
     <LinearLayout
@@ -22,6 +23,8 @@
             android:gravity="center"
             android:textColor="#363A43"
             android:textSize="22sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-light"
             tools:text="Which city is the capital of India?" />
 
         <LinearLayout
@@ -62,7 +65,8 @@
             android:background="@drawable/default_option_border_bg"
             android:gravity="center"
             android:padding="15dp"
-            android:textColor="#7A8089"
+            android:textColor="#44474C"
+            android:fontFamily="sans-serif-medium"
             android:textSize="18sp"
             tools:text="Apple" />
 
@@ -75,6 +79,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/default_option_border_bg"
+            android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:padding="15dp"
             android:textColor="#7A8089"
@@ -90,6 +95,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/default_option_border_bg"
+            android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:padding="15dp"
             android:textColor="#7A8089"
@@ -104,6 +110,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
+            android:fontFamily="sans-serif-medium"
             android:background="@drawable/default_option_border_bg"
             android:gravity="center"
             android:padding="15dp"
@@ -116,8 +123,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@color/colorPrimary"
             android:text="SUBMIT"
+            android:fontFamily="sans-serif-medium"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
