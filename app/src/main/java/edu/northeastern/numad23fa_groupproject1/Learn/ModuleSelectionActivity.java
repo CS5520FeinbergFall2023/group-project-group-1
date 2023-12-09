@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -28,6 +29,8 @@ public class ModuleSelectionActivity extends AppCompatActivity {
     private List<ModuleModel> modules;
 
     private RVModulesAdapter adapter;
+
+    private SharedPreferences sharedPreferences;
 
     @Inject
     @Named("LearnModuleServiceImpl")
@@ -54,7 +57,15 @@ public class ModuleSelectionActivity extends AppCompatActivity {
         rvModulesList.setAdapter(adapter);
         // Set layout manager to position the items
         rvModulesList.setLayoutManager(new LinearLayoutManager(this));
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        init();
+    }
+
+    private void init() {
         Handler handler = new Handler(Looper.getMainLooper()) {
             @Override
             public void handleMessage(Message message) {
@@ -65,6 +76,9 @@ public class ModuleSelectionActivity extends AppCompatActivity {
             }
         };
 
-        learnService.getAllModules(handler);
+        sharedPreferences = getSharedPreferences("admin1", MODE_PRIVATE);
+        String country = sharedPreferences.getString("COUNTRY", "");
+
+        learnService.getAllModules(country, handler);
     }
 }

@@ -10,9 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 import edu.northeastern.numad23fa_groupproject1.R;
 
@@ -23,7 +22,19 @@ import edu.northeastern.numad23fa_groupproject1.R;
  */
 public class ModuleContentFragment extends Fragment {
 
-    private static final String ITEM_PARAM = "item";
+    private static final String ITEM_PARAM;
+
+    private static final Map<String, Integer> imageIds;
+
+    static {
+        ITEM_PARAM = "item";
+        imageIds = new HashMap<>();
+        imageIds.put("namaste", R.drawable.namaste);
+        imageIds.put("man", R.drawable.man);
+        imageIds.put("woman", R.drawable.woman);
+        imageIds.put("greeting", R.drawable.greeting);
+        imageIds.put("hi", R.drawable.hi);
+    }
 
     private ModuleContentModel model;
 
@@ -34,7 +45,7 @@ public class ModuleContentFragment extends Fragment {
     public static ModuleContentFragment newInstance(Parcelable content) {
         ModuleContentFragment fragment = new ModuleContentFragment();
         Bundle args = new Bundle();
-        args.putParcelable("item", content);
+        args.putParcelable(ITEM_PARAM, content);
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,8 +65,8 @@ public class ModuleContentFragment extends Fragment {
         TextView translatedPhrase = view.findViewById(R.id.translated_phrase);
         nativePhrase.setText(model.getNativePhrase());
         translatedPhrase.setText(model.getTranslation());
-        ImageView img= view.findViewById(R.id.supporting_image);
-        img.setImageResource(R.drawable.namaste);
+        ImageView img = view.findViewById(R.id.supporting_image);
+        img.setImageResource(imageIds.get(model.getIdentifier()));
         return view;
     }
 }

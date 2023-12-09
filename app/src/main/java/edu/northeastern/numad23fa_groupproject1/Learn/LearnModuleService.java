@@ -4,6 +4,6 @@ import android.os.Handler;
 
 public interface LearnModuleService {
 
-    void getAllModules(Handler handler);
+    void getAllModules(String country, Handler handler);
 
 }

@@ -23,6 +23,7 @@ public class ModuleContentModel implements Parcelable {
     protected ModuleContentModel(Parcel in) {
         nativePhrase = in.readString();
         translation = in.readString();
+        identifier = in.readString();
     }
 
     public static final Creator<ModuleContentModel> CREATOR = new Creator<ModuleContentModel>() {
@@ -58,5 +59,6 @@ public class ModuleContentModel implements Parcelable {
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(nativePhrase);
         dest.writeString(translation);
+        dest.writeString(identifier);
     }
 }

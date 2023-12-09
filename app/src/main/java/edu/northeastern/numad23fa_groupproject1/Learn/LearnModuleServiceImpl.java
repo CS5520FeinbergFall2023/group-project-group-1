@@ -25,9 +25,9 @@ public class LearnModuleServiceImpl implements LearnModuleService {
     }
 
     @Override
-    public void getAllModules(Handler handler) {
+    public void getAllModules(String country, Handler handler) {
         db.collection("countries")
-                .document("india")
+                .document(country.toLowerCase())
                 .collection("modules")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
