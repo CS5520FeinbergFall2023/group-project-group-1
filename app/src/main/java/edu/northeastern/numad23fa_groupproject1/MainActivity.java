@@ -2,18 +2,23 @@ package edu.northeastern.numad23fa_groupproject1;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -64,19 +69,15 @@ public class MainActivity extends AppCompatActivity {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Intent userIntent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(userIntent);
-                finish();
+                showLogoutConfirmationDialog();
             }
         });
 
         // set the textview and buttons
+        LinearLayout secondOptionsLayout = findViewById(R.id.secondOptions);
         optionQuestionTV = findViewById(R.id.optionQuestionTV);
         languageBtn = findViewById(R.id.languageBtn);
         historyBtn = findViewById(R.id.historyBtn);
-//        cultureBtn = findViewById(R.id.cultureBtn);
-//        galleryBtn = findViewById(R.id.galleryBtn);
 
         // setup the spinner
         countrySpinner = findViewById(R.id.countrySpinner);
@@ -99,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!selectedCountry.equals("Select a country...")) {
 //                    Log.d(TAG, "country selected: " + selectedCountry);
                     countrySelected = selectedCountry;
+                    secondOptionsLayout.setVisibility(View.VISIBLE);
                     optionQuestionTV.setVisibility(View.VISIBLE);
                     languageBtn.setText("Language: " + getLanguage(selectedCountry));
                     languageBtn.setVisibility(View.VISIBLE);
@@ -134,58 +136,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        cultureBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
-//
-//        galleryBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
-        //
-        //test
-//        historyEvent = new ArrayList<>();
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        // Fetch the country document
-//        CollectionReference collectionRef = db.collection("countries");
-//
-//        // Fetch all documents in the collection
-//        collectionRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    for (DocumentSnapshot document : task.getResult()) {
-//                        String culture = document.getString("culture");
-//                        ArrayList<Map<String, String>>  historyList = (ArrayList<Map<java.lang.String,java.lang.String>>) document.get("historyData");
-//                        if (historyList != null) {
-//                            // Iterate through each map in the ArrayList
-//                            for (Map<String, String> historyMap : historyList) {
-//                                HistoryModel historyModel = new HistoryModel();
-//                                // Iterate through each key in the map
-//                                for (String key : historyMap.keySet()) {
-//                                    historyModel.setDate(historyMap.get("date"));
-//                                    historyModel.setDescription(historyMap.get("desc"));
-//                                    historyModel.setEventName(historyMap.get("event"));
-//                                    historyModel.setImageId(0);
-//                                    historyModel.setVisibility(false);
-//                                }
-//                                historyEvent.add(historyModel);
-//                            }
-//                        } else {
-//                            Log.d("Firestore", "No history field in the document.");
-//                        }
-//                        String language = document.getString("language");
-//                    }
-//                } else {
-//                    Log.w("Firestore", "Error getting documents.", task.getException());
-//                }
-//            }
-//        });
+        //when back button is pressed, it will display logout confirmation dialog
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                showLogoutConfirmationDialog();
+            }
+        };
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
     private String getLanguage(String country) {
@@ -210,6 +168,50 @@ public class MainActivity extends AppCompatActivity {
                 return R.drawable.history4;
         }
         return -1;
+    }
+
+    private void logoutUser() {
+        FirebaseAuth.getInstance().signOut();
+
+        //bringing us back to login page
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        startActivity(loginIntent);
+        finish();
+    }
+
+    private void showLogoutConfirmationDialog() {
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.logout_dialog_box, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+
+        TextView title = dialogView.findViewById(R.id.dialogTitle);
+        TextView message = dialogView.findViewById(R.id.dialogMessage);
+        Button confirmLogoutButton = dialogView.findViewById(R.id.confirmLogoutButton);
+        Button cancelLogoutButton = dialogView.findViewById(R.id.cancelLogoutButton);
+
+        AlertDialog dialog = builder.create();
+
+        //for logout button
+        confirmLogoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //if confirm, log out user and leads back to login page
+                logoutUser();
+                dialog.dismiss();
+            }
+        });
+
+        //for cancel button
+        cancelLogoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //do nothing
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
 }

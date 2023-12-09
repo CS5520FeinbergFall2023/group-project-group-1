@@ -1,28 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@drawable/backgroundmain2"
-    tools:context=".MainActivity">
-
-<!--    <TextView-->
-<!--        android:id="@+id/user_details"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="blank"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:fontFamily="sans-serif-medium"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        android:layout_margin="15dp" />-->
+    tools:context=".MainActivity"
+    android:padding="16dp">
 
     <Button
         android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_gravity="end"
         android:backgroundTint="#F8BCE1"
         android:fontFamily="sans-serif-condensed-medium"
         android:padding="12.5dp"
@@ -30,77 +20,88 @@
         android:text="l o g o u t"
         android:textSize="15dp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_marginEnd="16dp"/>
 
-    <TextView
+<!--    to give space to the logout and to slide the 2 linear layouts a little towards the middle -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E0FFFFFF"
+        android:layout_margin="20dp"
+        android:elevation="4dp"
+        android:orientation="vertical"
+        android:padding="20dp" >
+
+
+        <TextView
         android:id="@+id/pickCountryTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Please pick a country: "
+        android:fontFamily="sans-serif-condensed-medium"
         android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/countrySpinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_gravity="center_horizontal"/>
 
     <Spinner
         android:id="@+id/countrySpinner"
         android:layout_width="wrap_content"
+        android:fontFamily="sans-serif-condensed-medium"
         android:layout_height="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/optionQuestionTV"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pickCountryTV" />
+        android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/optionQuestionTV"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/secondOptions"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="What do you want to explore?"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/languageBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/countrySpinner" />
+        android:layout_margin="20dp"
+        android:background="#E0FFFFFF"
+        android:elevation="4dp"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:visibility="invisible" >
 
-    <Button
-        android:id="@+id/languageBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Language: "
-        android:fontFamily="sans-serif-medium"
-        android:textStyle="bold"
-        android:textSize="17dp"
-        android:backgroundTint="#8DB2F3"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/historyBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/optionQuestionTV" />
+        <TextView
+            android:id="@+id/optionQuestionTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="What do you want to explore?"
+            android:textSize="20sp"
+            android:visibility="invisible" />
 
-    <Button
-        android:id="@+id/historyBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="History"
-        android:backgroundTint="#8DB2F3"
-        android:visibility="invisible"
-        android:fontFamily="sans-serif-medium"
-        android:textStyle="bold"
-        android:textSize="17dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/languageBtn" />
+        <Button
+            android:id="@+id/languageBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:backgroundTint="#8DB2F3"
+            android:fontFamily="sans-serif-medium"
+            android:text="Language: "
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:visibility="invisible" />
 
+        <Button
+            android:id="@+id/historyBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:backgroundTint="#8DB2F3"
+            android:fontFamily="sans-serif-medium"
+            android:text="History"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:visibility="invisible" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+</LinearLayout>
