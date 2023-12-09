@@ -112,7 +112,6 @@ public class QuizResultActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Log.d("CDA", "onBackPressed Called");
         Intent setIntent = new Intent(QuizResultActivity.this, LanguageActivity.class);
         startActivity(setIntent);
     }
