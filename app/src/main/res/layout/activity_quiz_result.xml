@@ -17,9 +17,10 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="25dp"
         android:text="Result"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorDarkButton"
         android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium"/>
 
     <TextView
         android:id="@+id/tv_congratulations"
@@ -31,9 +32,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_result"
         android:text="Hey, Congratulations!"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorDarkButton"
         android:textSize="25sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium"/>
 
     <TextView
         android:id="@+id/tv_name"
@@ -44,10 +46,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_congratulations"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorDarkButton"
         android:textSize="22sp"
         android:textStyle="bold"
-        tools:text="Username" />
+        tools:text="Username"
+        android:fontFamily="sans-serif-medium" />
 
     <TextView
         android:id="@+id/tv_score"
@@ -58,10 +61,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_name"
         android:layout_marginTop="10dp"
-        android:textColor="@android:color/secondary_text_dark"
+        android:textColor="@color/colorButton"
         android:textSize="20sp"
-        tools:text="Your Score is 9 out of 10" />
-
+        tools:text="Your Score is 9 out of 10"
+        android:fontFamily="sans-serif-medium" />
+.
     <ImageView
         android:id="@+id/iv_trophy"
         android:layout_width="wrap_content"
@@ -73,19 +77,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_score" />
 
-    <Button
+<!--    <Button-->
+<!--        android:id="@+id/btn_finish"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:background="@color/colorDarkButton"-->
+<!--        android:backgroundTint="@color/colorDarkButton"-->
+<!--        android:text="F I N I S H"-->
+<!--        android:textColor="@android:color/white"-->
+<!--        android:textSize="18sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/iv_trophy" />-->
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_finish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@android:color/white"
-        android:text="FINISH"
-        android:textColor="@color/colorPrimary"
+        android:background="@color/colorDarkButton"
+        android:backgroundTint="@color/colorDarkButton"
+        android:text="F I N I S H"
+        android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:fontFamily="sans-serif-smallcaps"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_trophy" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_trophy">
+    </androidx.appcompat.widget.AppCompatButton>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

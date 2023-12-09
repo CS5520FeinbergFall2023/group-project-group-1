@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import edu.northeastern.numad23fa_groupproject1.LanguageActivity;
 import edu.northeastern.numad23fa_groupproject1.R;
 
 
@@ -171,5 +172,12 @@ public class QuizActivity extends AppCompatActivity {
                 tvOptionFour.setBackground(ContextCompat.getDrawable(this, drawableView));
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent setIntent = new Intent(QuizActivity.this, LanguageActivity.class);
+        startActivity(setIntent);
     }
 }
