@@ -45,12 +45,8 @@ public class MainActivity extends AppCompatActivity {
     TextView pickCountryTV, optionQuestionTV;
     Button languageBtn, historyBtn;
     ArrayList<HistoryModel> historyEvent;
-    String countrySelected, mUserEmail;
-    FirebaseAuth auth;
+    String countrySelected, selectedCountry;
     Button logoutButton;
-    TextView textView;
-    FirebaseUser user;
-
     SharedPreferences sharedPreferences;
 
     @Override
@@ -64,15 +60,6 @@ public class MainActivity extends AppCompatActivity {
         String json = sharedPreferences.getString("USER", "");
         UserModel user = gson.fromJson(json, UserModel.class);
 
-        logoutButton = findViewById(R.id.logout);
-
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showLogoutConfirmationDialog();
-            }
-        });
-
         // set the textview and buttons
         LinearLayout secondOptionsLayout = findViewById(R.id.secondOptions);
         optionQuestionTV = findViewById(R.id.optionQuestionTV);
@@ -82,16 +69,31 @@ public class MainActivity extends AppCompatActivity {
         // setup the spinner
         countrySpinner = findViewById(R.id.countrySpinner);
         String[] countries = {"Select a country...", "India", "Malaysia"};
-
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, countries);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         countrySpinner.setAdapter(arrayAdapter);
+
+        // restore data if this is not the first time this Activity is opened
+        countrySelected = sharedPreferences.getString("COUNTRY", "");
+        if (!countrySelected.equals("")) {
+            // set the spinner option
+            selectedCountry = countrySelected;
+            int spinnerPosition = arrayAdapter.getPosition(selectedCountry);
+            countrySpinner.setSelection(spinnerPosition);
+
+            // set the second box as visible
+            secondOptionsLayout.setVisibility(View.VISIBLE);
+            optionQuestionTV.setVisibility(View.VISIBLE);
+            languageBtn.setText("Language: " + getLanguage(selectedCountry));
+            languageBtn.setVisibility(View.VISIBLE);
+            historyBtn.setVisibility(View.VISIBLE);
+        }
 
         countrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedCountry = parent.getItemAtPosition(position).toString();
+                selectedCountry = parent.getItemAtPosition(position).toString();
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("COUNTRY", selectedCountry);
                 editor.commit();
@@ -136,6 +138,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // logout
+        logoutButton = findViewById(R.id.logout);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLogoutConfirmationDialog();
+            }
+        });
+
         //when back button is pressed, it will display logout confirmation dialog
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
@@ -147,7 +158,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String getLanguage(String country) {
-        // TODO: store (country:language) in a hashmap?
         if (country.equals("India")) {
             return "Hindi";
         } else if (country.equals("Malaysia")) {
@@ -156,22 +166,14 @@ public class MainActivity extends AppCompatActivity {
         return null;
     }
 
-    private int findImageById(int imageID) {
-        switch (imageID) {
-            case 0 :
-                return R.drawable.history1;
-            case 1:
-                return R.drawable.history2;
-            case 2:
-                return R.drawable.history3;
-            case 3:
-                return R.drawable.history4;
-        }
-        return -1;
-    }
-
     private void logoutUser() {
         FirebaseAuth.getInstance().signOut();
+
+        // clear shared preferences to log the user out:
+        SharedPreferences sharedPreferences = getSharedPreferences("admin1", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
 
         //bringing us back to login page
         Intent loginIntent = new Intent(this, LoginActivity.class);
