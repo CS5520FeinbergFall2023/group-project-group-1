@@ -24,7 +24,6 @@ public class QuizActivity extends AppCompatActivity {
 
     private int mSelectedOptionPosition = -1;
     private int mCorrectAnswers = 0;
-//    private String mUserName,country = null;
 
 
     // Declare UI elements
@@ -41,8 +40,6 @@ public class QuizActivity extends AppCompatActivity {
         mQuestionsList = new ArrayList<>();
         Intent intent = getIntent();
         if (intent != null) {
-//            mUserName = intent.getStringExtra("USER_NAME");
-//            country = intent.getStringExtra("COUNTRY");
             mQuestionsList = getIntent().getParcelableArrayListExtra("questionArray");
         }
 
@@ -72,6 +69,8 @@ public class QuizActivity extends AppCompatActivity {
 
         btnSubmit.setOnClickListener(view -> {
             if (mSelectedOptionPosition == -1) {
+                setTvClickable(true); // this makes the option text views clickable
+
                 if (!(btnSubmit.getText().equals("N E X T  Q U E S T I O N")  || btnSubmit.getText().equals("F I N I S H"))) {
                     Toast.makeText(this, "Please select an option to proceed!", Toast.LENGTH_SHORT).show();
                     return;
@@ -99,13 +98,25 @@ public class QuizActivity extends AppCompatActivity {
 
                 if (mCurrentPosition == mQuestionsList.size()) {
                     btnSubmit.setText("F I N I S H");
+                    setTvClickable(false); // this makes the answer text view not clickable
+
                 } else {
                     btnSubmit.setText("N E X T  Q U E S T I O N");
+                    setTvClickable(false); // this makes the answer text view not clickable
                 }
 
                 mSelectedOptionPosition = -1;
             }
         });
+    }
+
+    // This is a helper function that helps set whether the option text views can be clicked or not
+    // The purpose of this is to make sure that after the answer is submitted, it cannot be changed.
+    private void setTvClickable(boolean bool) {
+        tvOptionOne.setClickable(bool);
+        tvOptionTwo.setClickable(bool);
+        tvOptionThree.setClickable(bool);
+        tvOptionFour.setClickable(bool);
     }
 
     private void setQuestion() {
